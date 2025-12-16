@@ -130,11 +130,10 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
   return (
     <>
       <section className="w-full bg-gray-50 border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-5 py-20 space-y-16">
+        <div className="section-shell py-20 flex flex-col gap-16">
           <div className="card overflow-hidden relative">
-            <div className="absolute inset-0 backdrop-blur-[2px] bg-gradient-to-b from-transparent via-[rgba(233,238,255,0.5)] to-[rgba(202,208,230,0.5)] pointer-events-none"></div>
-            <div className="grid gap-8 p-6 lg:grid-cols-3 lg:p-8 relative z-10">
-              <div className="space-y-6 lg:col-span-1">
+            <div className="grid gap-8 p-6 lg:grid-cols-3 lg:p-8 relative overflow-hidden before:absolute before:inset-0 before:backdrop-blur-[2px] before:bg-gradient-to-b before:from-transparent before:via-[rgba(233,238,255,0.5)] before:to-[rgba(202,208,230,0.5)] before:pointer-events-none before:-z-10">
+              <div className="space-y-6 lg:col-span-1 relative z-10">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-tightish text-brand-600">Instant math</p>
                   <h2 className="mt-2 text-2xl font-semibold text-neutral-900">What would you do with the savings?</h2>
@@ -199,7 +198,7 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
                 </div>
               </div>
 
-              <div className="lg:col-span-2">
+              <div className="lg:col-span-2 relative z-10">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="card p-4">
                     <p className="text-xs font-semibold uppercase tracking-tightish text-neutral-500">Projected value (no fees)</p>
@@ -250,10 +249,10 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="py-8">
-            <QuoteTicker />
-          </div>
+        <div className="w-full overflow-hidden py-8">
+          <QuoteTicker />
         </div>
       </section>
 

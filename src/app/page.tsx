@@ -23,7 +23,7 @@ export default function Home({
   const calculatorState: CalculatorState = parseCalculatorState(params);
 
   return (
-    <main className="space-y-16 pb-16">
+    <main className="flex flex-col gap-16 pb-16">
       <section className="section-shell pt-12 text-center">
         <p className="text-xs font-semibold uppercase tracking-tightish text-brand-600">Fee-clarity landing</p>
         <h1 className="mt-3 text-4xl font-semibold text-neutral-900 sm:text-5xl">What would you do with {formatCurrency(500000)}?</h1>
