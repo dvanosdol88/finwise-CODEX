@@ -128,130 +128,134 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
   }, [shareUrl]);
 
   return (
-    <div className="space-y-16">
-      <div className="card overflow-hidden relative">
-      <div className="absolute left-0 right-0 bottom-0 backdrop-blur-[2px] h-40 bg-gradient-to-b from-transparent via-[rgba(233,238,255,0.5)] to-[rgba(202,208,230,0.5)] pointer-events-none"></div>
-      <div className="grid gap-8 p-6 lg:grid-cols-3 lg:p-8 relative z-10">
-        <div className="space-y-6 lg:col-span-1">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-tightish text-brand-600">Instant math</p>
-            <h2 className="mt-2 text-2xl font-semibold text-neutral-900">What would you do with the savings?</h2>
-            <p className="mt-2 text-sm text-neutral-600">
-              Adjust the sliders to see how advisory fees eat into your growth. Share the exact scenario with prospects or reuse
-              it on /save and /how-it-works.
-            </p>
+    <>
+      <section className="w-full bg-gray-50 border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-5 py-20 space-y-16">
+          <div className="card overflow-hidden relative">
+            <div className="absolute inset-0 backdrop-blur-[2px] bg-gradient-to-b from-transparent via-[rgba(233,238,255,0.5)] to-[rgba(202,208,230,0.5)] pointer-events-none"></div>
+            <div className="grid gap-8 p-6 lg:grid-cols-3 lg:p-8 relative z-10">
+              <div className="space-y-6 lg:col-span-1">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-tightish text-brand-600">Instant math</p>
+                  <h2 className="mt-2 text-2xl font-semibold text-neutral-900">What would you do with the savings?</h2>
+                  <p className="mt-2 text-sm text-neutral-600">
+                    Adjust the sliders to see how advisory fees eat into your growth. Share the exact scenario with prospects or reuse
+                    it on /save and /how-it-works.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <Slider
+                    label="Portfolio value"
+                    min={50000}
+                    max={5000000}
+                    step={50000}
+                    value={state.portfolioValue}
+                    onChange={(value) => setState((prev) => ({ ...prev, portfolioValue: value }))}
+                  />
+                  <Slider
+                    label="Years"
+                    min={1}
+                    max={40}
+                    step={1}
+                    value={state.years}
+                    suffix=" yrs"
+                    onChange={(value) => setState((prev) => ({ ...prev, years: value }))}
+                  />
+                  <Slider
+                    label="Expected annual growth"
+                    min={0}
+                    max={15}
+                    step={0.1}
+                    value={state.annualGrowthPercent}
+                    suffix="%"
+                    onChange={(value) => setState((prev) => ({ ...prev, annualGrowthPercent: value }))}
+                  />
+                  <Slider
+                    label="Advisory fee"
+                    min={0}
+                    max={3}
+                    step={0.05}
+                    value={state.annualFeePercent}
+                    suffix="%"
+                    onChange={(value) => setState((prev) => ({ ...prev, annualFeePercent: value }))}
+                  />
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={copyShareUrl}
+                    className="inline-flex items-center gap-2 rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700"
+                  >
+                    <Copy size={16} /> Share this scenario
+                  </button>
+                  <Link href={{ pathname: "/save", query: linkQuery }} className="text-sm font-semibold text-brand-700">
+                    See deeper proof →
+                  </Link>
+                  <Link href={{ pathname: "/how-it-works", query: linkQuery }} className="text-sm font-semibold text-brand-700">
+                    How it works →
+                  </Link>
+                </div>
+              </div>
+
+              <div className="lg:col-span-2">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="card p-4">
+                    <p className="text-xs font-semibold uppercase tracking-tightish text-neutral-500">Projected value (no fees)</p>
+                    <p className="mt-2 text-2xl font-semibold text-neutral-900">{formatCurrency(projection.finalValueWithoutFees)}</p>
+                    <p className="text-sm text-neutral-600">Over {state.years} years at {formatPercent(state.annualGrowthPercent)}.</p>
+                  </div>
+                  <div className="card p-4">
+                    <p className="text-xs font-semibold uppercase tracking-tightish text-neutral-500">Lost to fees</p>
+                    <p className="mt-2 text-2xl font-semibold text-danger-600">{formatCurrency(projection.savings)}</p>
+                    <p className="text-sm text-neutral-600">That is money that could keep compounding for you.</p>
+                  </div>
+                </div>
+
+                <div className="card mt-6 p-4 sm:p-6">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-tightish text-neutral-500">Growth vs. fee drag</p>
+                      <h3 className="text-lg font-semibold text-neutral-900">Your dollars over time</h3>
+                    </div>
+                    <div className="text-right text-xs text-neutral-500">
+                      <p>Without fees: {formatCurrency(projection.finalValueWithoutFees)}</p>
+                      <p>With {formatPercent(state.annualFeePercent)} fees: {formatCurrency(projection.finalValueWithFees)}</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 h-72 w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={projection.series} margin={{ top: 10, right: 16, left: 0, bottom: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                        <XAxis dataKey="year" tickLine={false} axisLine={false} tick={{ fill: "#64748b", fontSize: 12 }} />
+                        <YAxis
+                          tickLine={false}
+                          axisLine={false}
+                          tick={{ fill: "#64748b", fontSize: 12 }}
+                          tickFormatter={(value) => `${value / 1000}k`}
+                        />
+                        <Tooltip
+                          formatter={(value: number) => formatCurrency(value)}
+                          labelFormatter={(label) => `${label} years`}
+                          contentStyle={{ borderRadius: 12, borderColor: "#e2e8f0" }}
+                        />
+                        <Area type="monotone" dataKey="withoutFees" stroke="#6366f1" fill="#6366f1" fillOpacity={0.2} />
+                        <Area type="monotone" dataKey="withFees" stroke="#fb7185" fill="#fb7185" fillOpacity={0.18} />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="space-y-4">
-            <Slider
-              label="Portfolio value"
-              min={50000}
-              max={5000000}
-              step={50000}
-              value={state.portfolioValue}
-              onChange={(value) => setState((prev) => ({ ...prev, portfolioValue: value }))}
-            />
-            <Slider
-              label="Years"
-              min={1}
-              max={40}
-              step={1}
-              value={state.years}
-              suffix=" yrs"
-              onChange={(value) => setState((prev) => ({ ...prev, years: value }))}
-            />
-            <Slider
-              label="Expected annual growth"
-              min={0}
-              max={15}
-              step={0.1}
-              value={state.annualGrowthPercent}
-              suffix="%"
-              onChange={(value) => setState((prev) => ({ ...prev, annualGrowthPercent: value }))}
-            />
-            <Slider
-              label="Advisory fee"
-              min={0}
-              max={3}
-              step={0.05}
-              value={state.annualFeePercent}
-              suffix="%"
-              onChange={(value) => setState((prev) => ({ ...prev, annualFeePercent: value }))}
-            />
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={copyShareUrl}
-              className="inline-flex items-center gap-2 rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700"
-            >
-              <Copy size={16} /> Share this scenario
-            </button>
-            <Link href={{ pathname: "/save", query: linkQuery }} className="text-sm font-semibold text-brand-700">
-              See deeper proof →
-            </Link>
-            <Link href={{ pathname: "/how-it-works", query: linkQuery }} className="text-sm font-semibold text-brand-700">
-              How it works →
-            </Link>
+          <div className="py-8">
+            <QuoteTicker />
           </div>
         </div>
-
-        <div className="lg:col-span-2">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="card p-4">
-              <p className="text-xs font-semibold uppercase tracking-tightish text-neutral-500">Projected value (no fees)</p>
-              <p className="mt-2 text-2xl font-semibold text-neutral-900">{formatCurrency(projection.finalValueWithoutFees)}</p>
-              <p className="text-sm text-neutral-600">Over {state.years} years at {formatPercent(state.annualGrowthPercent)}.</p>
-            </div>
-            <div className="card p-4">
-              <p className="text-xs font-semibold uppercase tracking-tightish text-neutral-500">Lost to fees</p>
-              <p className="mt-2 text-2xl font-semibold text-danger-600">{formatCurrency(projection.savings)}</p>
-              <p className="text-sm text-neutral-600">That is money that could keep compounding for you.</p>
-            </div>
-          </div>
-
-          <div className="card mt-6 p-4 sm:p-6">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-tightish text-neutral-500">Growth vs. fee drag</p>
-                <h3 className="text-lg font-semibold text-neutral-900">Your dollars over time</h3>
-              </div>
-              <div className="text-right text-xs text-neutral-500">
-                <p>Without fees: {formatCurrency(projection.finalValueWithoutFees)}</p>
-                <p>With {formatPercent(state.annualFeePercent)} fees: {formatCurrency(projection.finalValueWithFees)}</p>
-              </div>
-            </div>
-
-            <div className="mt-4 h-72 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={projection.series} margin={{ top: 10, right: 16, left: 0, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                  <XAxis dataKey="year" tickLine={false} axisLine={false} tick={{ fill: "#64748b", fontSize: 12 }} />
-                  <YAxis
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fill: "#64748b", fontSize: 12 }}
-                    tickFormatter={(value) => `${value / 1000}k`}
-                  />
-                  <Tooltip
-                    formatter={(value: number) => formatCurrency(value)}
-                    labelFormatter={(label) => `${label} years`}
-                    contentStyle={{ borderRadius: 12, borderColor: "#e2e8f0" }}
-                  />
-                  <Area type="monotone" dataKey="withoutFees" stroke="#6366f1" fill="#6366f1" fillOpacity={0.2} />
-                  <Area type="monotone" dataKey="withFees" stroke="#fb7185" fill="#fb7185" fillOpacity={0.18} />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-
-      <div className="py-8">
-        <QuoteTicker />
-      </div>
+      </section>
 
       <ValueCards
         portfolioValue={state.portfolioValue}
@@ -259,6 +263,6 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
         portfolioGrowth={state.annualGrowthPercent}
         years={state.years}
       />
-    </div>
+    </>
   );
 }

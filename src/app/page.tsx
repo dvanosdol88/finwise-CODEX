@@ -32,9 +32,7 @@ export default function Home({
         </p>
       </section>
 
-      <section className="section-shell">
-        <CostAnalysisCalculator initialState={calculatorState} searchParams={searchParams} />
-      </section>
+      <CostAnalysisCalculator initialState={calculatorState} searchParams={searchParams} />
 
 
 

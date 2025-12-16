@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo } from 'react';
-import { FlippableCard } from './FlippableCard';
+import { ValueSection } from './ValueSection';
 import brainAiImage from './brain-plus-AI (3)_1764083448075.png';
 import piggyBankImage from './save_money_piggy_bank_correct_color_1764085668526.png';
 import improveToolsImage from './improve-tools-icon.png';
@@ -59,22 +59,21 @@ export function ValueCards({
         </>
       ),
     },
-  ], [portfolioValue, annualFeePercent, portfolioGrowth, years]);
+  ], []);
 
   return (
-    <section className="py-8 md:py-16 bg-white">
-      <div className="container mx-auto px-4">
+    <section className="w-full bg-white">
+      <div className="max-w-7xl mx-auto px-5 py-24">
         {/* Main Title */}
-        <h2 className="text-5xl md:text-6xl font-bold text-center mb-12 text-gray-800">
+        <h2 className="text-5xl md:text-6xl font-bold text-center mb-16 text-gray-800">
           <span className="text-primary">Upgrade</span>. <span className="text-primary">Improve</span>. <span className="text-green-600">Save?</span>
         </h2>
 
-        {/* --- Grid Layout (Replaces Carousel) --- */}
-        <div className="flex flex-col gap-16 w-full mx-auto">
+        {/* --- Linear Layout --- */}
+        <div className="flex flex-col w-full mx-auto divide-y divide-gray-100">
             {cards.map((item, index) => (
-              <div key={index} className="w-full min-h-[600px]"> 
-                {/* min-h ensured cards are naturally tall enough for their content/flip */}
-                <FlippableCard item={item} />
+              <div key={index}>
+                <ValueSection item={item} />
               </div>
             ))}
         </div>
