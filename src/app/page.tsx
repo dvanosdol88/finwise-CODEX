@@ -36,17 +36,7 @@ export default function Home({
         <CostAnalysisCalculator initialState={calculatorState} searchParams={searchParams} />
       </section>
 
-      <section className="section-shell grid gap-6 lg:grid-cols-3">
-        {["Upgrade", "Improve", "Save"].map((title, index) => (
-          <div key={title} className="card p-6">
-            <p className="text-xs font-semibold uppercase tracking-tightish text-brand-600">Step {index + 1}</p>
-            <h3 className="mt-2 text-xl font-semibold text-neutral-900">{title} your approach</h3>
-            <p className="mt-2 text-neutral-600">
-              We use the same projection logic across every section so you can validate the story before moving forward.
-            </p>
-          </div>
-        ))}
-      </section>
+
 
       <footer className="section-shell border-t border-neutral-200 pt-8 text-sm text-neutral-500">
         <p>

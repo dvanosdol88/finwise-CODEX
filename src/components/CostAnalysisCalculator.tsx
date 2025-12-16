@@ -1,5 +1,8 @@
 "use client";
 
+
+
+
 import { useCallback, useMemo, useState } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Copy } from "lucide-react";
@@ -7,6 +10,8 @@ import Link from "next/link";
 import { buildFeeProjection } from "@/lib/feeProjection";
 import { CalculatorState, DEFAULT_STATE, buildQueryFromState, paramsToRecord } from "@/lib/calculatorState";
 import { formatCurrency, formatPercent } from "@/lib/format";
+import { ValueCards } from "./value-cards/ValueCards";
+import QuoteTicker from "./QuoteTicker";
 
 const numberFormatter = new Intl.NumberFormat("en-US");
 
@@ -123,8 +128,10 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
   }, [shareUrl]);
 
   return (
-    <div className="card overflow-hidden">
-      <div className="grid gap-8 p-6 lg:grid-cols-3 lg:p-8">
+    <div className="space-y-16">
+      <div className="card overflow-hidden relative">
+      <div className="absolute left-0 right-0 bottom-0 backdrop-blur-[2px] h-40 bg-gradient-to-b from-transparent via-[rgba(233,238,255,0.5)] to-[rgba(202,208,230,0.5)] pointer-events-none"></div>
+      <div className="grid gap-8 p-6 lg:grid-cols-3 lg:p-8 relative z-10">
         <div className="space-y-6 lg:col-span-1">
           <div>
             <p className="text-xs font-semibold uppercase tracking-tightish text-brand-600">Instant math</p>
@@ -240,6 +247,18 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
           </div>
         </div>
       </div>
+      </div>
+
+      <div className="py-8">
+        <QuoteTicker />
+      </div>
+
+      <ValueCards
+        portfolioValue={state.portfolioValue}
+        annualFeePercent={state.annualFeePercent}
+        portfolioGrowth={state.annualGrowthPercent}
+        years={state.years}
+      />
     </div>
   );
 }
