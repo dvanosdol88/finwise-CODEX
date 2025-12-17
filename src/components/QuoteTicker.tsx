@@ -17,7 +17,6 @@ interface QuoteTickerProps {
   label?: string;
   showLabel?: boolean;
   speed?: number;
-  backgroundColor?: string;
 }
 
 // ============================================================================
@@ -155,7 +154,6 @@ export default function QuoteTicker({
   label = "Don't take our word for it.",
   showLabel = true,
   speed = 159,
-  backgroundColor = '#f5f5f4',
 }: QuoteTickerProps) {
   const [hoveredQuote, setHoveredQuote] = useState<Quote | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
@@ -235,7 +233,7 @@ export default function QuoteTicker({
         </div>
       )}
 
-      <div className="relative py-8 overflow-hidden" style={{ backgroundColor }}>
+      <div className="relative py-8 overflow-hidden bg-transparent">
         {showLabel && (
           <div className="text-center mb-[18px]">
             <span className="text-base font-medium tracking-wide text-stone-800">
