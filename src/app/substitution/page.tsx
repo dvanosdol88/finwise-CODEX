@@ -21,9 +21,10 @@ const WORDART_IMAGES = [
   { src: '/RETIRE_2036.png', alt: 'Retire 2036' },
   { src: '/INHERIT.png', alt: 'Inheritance' },
   { src: '/PENSION.png', alt: 'Pension' },
-  { src: '/WordArt_BEACH_HOUSE.png', alt: 'Beach House' },
-  { src: '/WordArt_BUY_BOAT.png', alt: 'Buy Boat' },
-  { src: '/WordArt_Med_Loans.png', alt: 'Med School Loans' },
+  { src: '/BeachHouse_cropped.png', alt: 'Beach House' },
+  { src: '/Boat3D_cropped.png', alt: 'Buy Boat' },
+  { src: '/BOAT2D_cropped.png', alt: 'Boat 2D' },
+  { src: '/MedLoans_cropped.png', alt: 'Med School Loans' },
 ];
 
 // Fisher-Yates shuffle
@@ -138,7 +139,7 @@ export default function PortfolioArchitect() {
   // Step 2 Sequence State
   const [persStage, setPersStage] = useState(0); // 0, 1, 2, 3, 4
   const [highlightChart, setHighlightChart] = useState(false);
-  const [selectedImages, setSelectedImages] = useState(() => shuffleArray(WORDART_IMAGES).slice(0, 4)); 
+  const [selectedImages, setSelectedImages] = useState(() => shuffleArray(WORDART_IMAGES)); 
   
   // Step 3 Animation States
   const [isDemoActive, setIsDemoActive] = useState(false);
@@ -183,44 +184,29 @@ export default function PortfolioArchitect() {
   useEffect(() => {
     if (step === 2) {
         // Reshuffle images when entering step 2
-        setSelectedImages(shuffleArray(WORDART_IMAGES).slice(0, 4));
+        setSelectedImages(shuffleArray(WORDART_IMAGES));
         setPersStage(0);
         setHighlightChart(false);
 
-        // Sequence logic for 4 drops:
-        // Each drop: 0.8s fall + 0.5s pause = 1.3s, then highlight for 1s
+        // Sequence logic for 7 drops:
+        // Each drop: 0.6s fall + 0.4s pause = 1.0s interval
+        const dropInterval = 1000;
+        const highlightDuration = 600;
+        const initialDelay = 800;
 
-        // --- SEQUENCE 1 ---
-        const t1 = setTimeout(() => {
-            setPersStage(1);
-            setHighlightChart(true);
-        }, 1300);
-        const h1_off = setTimeout(() => setHighlightChart(false), 2300);
+        const timeouts: NodeJS.Timeout[] = [];
 
-        // --- SEQUENCE 2 ---
-        const t2 = setTimeout(() => {
-            setPersStage(2);
-            setHighlightChart(true);
-        }, 4000);
-        const h2_off = setTimeout(() => setHighlightChart(false), 5000);
-
-        // --- SEQUENCE 3 ---
-        const t3 = setTimeout(() => {
-            setPersStage(3);
-            setHighlightChart(true);
-        }, 6700);
-        const h3_off = setTimeout(() => setHighlightChart(false), 7700);
-
-        // --- SEQUENCE 4 ---
-        const t4 = setTimeout(() => {
-            setPersStage(4);
-            setHighlightChart(true);
-        }, 9400);
-        const h4_off = setTimeout(() => setHighlightChart(false), 10400);
+        for (let i = 1; i <= 7; i++) {
+            const dropTime = initialDelay + (i - 1) * dropInterval;
+            timeouts.push(setTimeout(() => {
+                setPersStage(i);
+                setHighlightChart(true);
+            }, dropTime));
+            timeouts.push(setTimeout(() => setHighlightChart(false), dropTime + highlightDuration));
+        }
 
         return () => {
-            clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-            clearTimeout(h1_off); clearTimeout(h2_off); clearTimeout(h3_off); clearTimeout(h4_off);
+            timeouts.forEach(t => clearTimeout(t));
         };
     } else {
         setHighlightChart(false);
@@ -405,15 +391,15 @@ export default function PortfolioArchitect() {
                         {selectedImages.map((img, index) => (
                             <div
                                 key={img.src}
-                                className="absolute w-full flex justify-center transition-all duration-[800ms] ease-bounce"
+                                className="absolute w-full flex justify-center transition-all duration-[600ms] ease-bounce"
                                 style={{
                                     transform: persStage >= index + 1 ? 'translateY(0)' : 'translateY(-300%)',
-                                    bottom: `${index * 55}px`,
+                                    bottom: `${index * 40}px`,
                                     zIndex: (index + 1) * 10,
                                     opacity: persStage >= index + 1 ? 1 : 0
                                 }}
                             >
-                                <img src={img.src} alt={img.alt} className="max-h-[55px] object-contain drop-shadow-lg" />
+                                <img src={img.src} alt={img.alt} className="max-h-[40px] object-contain drop-shadow-lg" />
                             </div>
                         ))}
                     </div>
