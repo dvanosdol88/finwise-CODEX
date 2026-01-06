@@ -1,0 +1,39 @@
+# Cursor Rules for finwise-CODEX
+
+## Autonomy Level: FULL
+
+You have permission to operate autonomously. This means:
+
+- DO NOT ask "Would you like me to..." — just do it
+- DO NOT ask "Should I proceed?" — the answer is yes
+- DO NOT explain what you're about to do — just do it
+- DO NOT stop after each step to check in
+- DO NOT generate placeholder implementations
+
+When given a task, complete it fully. Make reasonable assumptions. Fix errors yourself (try 2-3 times before asking).
+
+## Project Context
+
+- **Project:** finwise-CODEX (you-are-paying-too-much.com)
+- **Stack:** Next.js 14 + TypeScript + Tailwind CSS + Recharts
+- **Deployment:** Vercel
+
+## Commands
+
+- `npm run dev` - Dev server
+- `npm run build` - Production build
+- `npm run lint` - ESLint
+
+## Code Style
+
+- Use TypeScript with strict types
+- Use Tailwind CSS for styling
+- Follow existing component patterns
+- Prefer functional components with hooks
+- Use Lucide React for icons
+
+## Safety Rules
+
+- NEVER recreate files that appear to be intentionally deleted
+- If an import points to a missing file, DELETE the import
+- ASK before modifying .env files or deployment configs

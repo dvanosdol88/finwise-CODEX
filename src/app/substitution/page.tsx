@@ -16,6 +16,26 @@ import {
   Wallet
 } from 'lucide-react';
 
+// --- WORDART IMAGES POOL ---
+const WORDART_IMAGES = [
+  { src: '/RETIRE_2036.png', alt: 'Retire 2036' },
+  { src: '/INHERIT.png', alt: 'Inheritance' },
+  { src: '/PENSION.png', alt: 'Pension' },
+  { src: '/WordArt_BEACH_HOUSE.png', alt: 'Beach House' },
+  { src: '/WordArt_BUY_BOAT.png', alt: 'Buy Boat' },
+  { src: '/WordArt_Med_Loans.png', alt: 'Med School Loans' },
+];
+
+// Fisher-Yates shuffle
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 // --- BRAND COLOR PALETTE ---
 const PALETTE = {
   primary: '#006044',   // Evergreen
@@ -116,8 +136,9 @@ export default function PortfolioArchitect() {
   const [activeIndex, setActiveIndex] = useState(0);
   
   // Step 2 Sequence State
-  const [persStage, setPersStage] = useState(0); // 0, 1, 2, 3
-  const [highlightChart, setHighlightChart] = useState(false); 
+  const [persStage, setPersStage] = useState(0); // 0, 1, 2, 3, 4
+  const [highlightChart, setHighlightChart] = useState(false);
+  const [selectedImages, setSelectedImages] = useState(() => shuffleArray(WORDART_IMAGES).slice(0, 4)); 
   
   // Step 3 Animation States
   const [isDemoActive, setIsDemoActive] = useState(false);
@@ -126,9 +147,9 @@ export default function PortfolioArchitect() {
 
   // --- DERIVED ALLOCATIONS ---
   const currentAllocations = useMemo(() => {
-    if (step === 2) return STAGE_ALLOCATIONS[persStage];
-    if (step === 3) return STAGE_ALLOCATIONS[3]; 
-    return STAGE_ALLOCATIONS[0]; 
+    if (step === 2) return STAGE_ALLOCATIONS[Math.min(persStage, 3)];
+    if (step === 3) return STAGE_ALLOCATIONS[3];
+    return STAGE_ALLOCATIONS[0];
   }, [step, persStage]);
 
   // Map to Chart Data
@@ -161,47 +182,45 @@ export default function PortfolioArchitect() {
   // --- STEP 2 SEQUENCER (Strict Timing) ---
   useEffect(() => {
     if (step === 2) {
+        // Reshuffle images when entering step 2
+        setSelectedImages(shuffleArray(WORDART_IMAGES).slice(0, 4));
         setPersStage(0);
         setHighlightChart(false);
 
-        // Sequence logic: 
-        // 1. Drop falls (0s to ~0.8s)
-        // 2. Pause (0.5s)
-        // 3. Highlight ON & Chart Update (at ~1.3s)
+        // Sequence logic for 4 drops:
+        // Each drop: 0.8s fall + 0.5s pause = 1.3s, then highlight for 1s
 
-        // --- SEQUENCE 1: "Retire in 14 Years" ---
+        // --- SEQUENCE 1 ---
         const t1 = setTimeout(() => {
-            setPersStage(1); 
+            setPersStage(1);
             setHighlightChart(true);
-        }, 1300); // 0.8s drop + 0.5s pause
-        
-        const h1_off = setTimeout(() => setHighlightChart(false), 2300); // Highlight lasts 1s
+        }, 1300);
+        const h1_off = setTimeout(() => setHighlightChart(false), 2300);
 
-        // --- SEQUENCE 2: "Legacy is Important" ---
-        // Starts at ~3.5s (gap for reading)
-        // Drop ends at ~4.3s
-        // +0.5s Pause -> Trigger at 4.8s
+        // --- SEQUENCE 2 ---
         const t2 = setTimeout(() => {
             setPersStage(2);
             setHighlightChart(true);
-        }, 4800);
-        
-        const h2_off = setTimeout(() => setHighlightChart(false), 5800);
+        }, 4000);
+        const h2_off = setTimeout(() => setHighlightChart(false), 5000);
 
-        // --- SEQUENCE 3: "High Future Earnings" ---
-        // Starts at ~7.0s
-        // Drop ends at ~7.8s
-        // +0.5s Pause -> Trigger at 8.3s
+        // --- SEQUENCE 3 ---
         const t3 = setTimeout(() => {
             setPersStage(3);
             setHighlightChart(true);
-        }, 8300);
-        
-        const h3_off = setTimeout(() => setHighlightChart(false), 9300);
+        }, 6700);
+        const h3_off = setTimeout(() => setHighlightChart(false), 7700);
 
-        return () => { 
-            clearTimeout(t1); clearTimeout(t2); clearTimeout(t3);
-            clearTimeout(h1_off); clearTimeout(h2_off); clearTimeout(h3_off);
+        // --- SEQUENCE 4 ---
+        const t4 = setTimeout(() => {
+            setPersStage(4);
+            setHighlightChart(true);
+        }, 9400);
+        const h4_off = setTimeout(() => setHighlightChart(false), 10400);
+
+        return () => {
+            clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+            clearTimeout(h1_off); clearTimeout(h2_off); clearTimeout(h3_off); clearTimeout(h4_off);
         };
     } else {
         setHighlightChart(false);
@@ -383,48 +402,20 @@ export default function PortfolioArchitect() {
 
                     {/* RIGHT: THE DROP ZONE (Behind elements) */}
                     <div className="flex-1 relative overflow-hidden flex flex-col justify-end pb-2">
-
-                        {/* 1. DROP: "Retire" WordArt */}
-                        <div
-                            className="absolute w-full flex justify-center transition-all duration-[800ms] ease-bounce"
-                            style={{
-                                transform: persStage >= 1 ? 'translateY(0)' : 'translateY(-300%)',
-                                bottom: '10px',
-                                zIndex: 10,
-                                opacity: persStage >= 1 ? 1 : 0
-                            }}
-                        >
-                            <img src="/WordArt_RETIRE.png" alt="Retire" className="max-h-[80px] object-contain drop-shadow-lg" />
-                        </div>
-
-                        {/* 2. DROP: "Inheritance" WordArt (Lands ON TOP) */}
-                        <div
-                            className="absolute w-full flex justify-center transition-all duration-[800ms] ease-bounce"
-                            style={{
-                                transform: persStage >= 2 ? 'translateY(0)' : 'translateY(-300%)',
-                                bottom: '100px',
-                                zIndex: 20,
-                                opacity: persStage >= 2 ? 1 : 0,
-                                transitionDelay: '3.5s'
-                            }}
-                        >
-                            <img src="/WordArt_INHERITANCE.png" alt="Inheritance" className="max-h-[80px] object-contain drop-shadow-lg" />
-                        </div>
-
-                        {/* 3. DROP: "Pension" WordArt (Lands ON TOP) */}
-                        <div
-                            className="absolute w-full flex justify-center transition-all duration-[800ms] ease-bounce"
-                            style={{
-                                transform: persStage >= 3 ? 'translateY(0)' : 'translateY(-300%)',
-                                bottom: '190px',
-                                zIndex: 30,
-                                opacity: persStage >= 3 ? 1 : 0,
-                                transitionDelay: '7.0s'
-                            }}
-                        >
-                            <img src="/WordArt_PENSION.png" alt="Pension" className="max-h-[80px] object-contain drop-shadow-lg" />
-                        </div>
-
+                        {selectedImages.map((img, index) => (
+                            <div
+                                key={img.src}
+                                className="absolute w-full flex justify-center transition-all duration-[800ms] ease-bounce"
+                                style={{
+                                    transform: persStage >= index + 1 ? 'translateY(0)' : 'translateY(-300%)',
+                                    bottom: `${index * 55}px`,
+                                    zIndex: (index + 1) * 10,
+                                    opacity: persStage >= index + 1 ? 1 : 0
+                                }}
+                            >
+                                <img src={img.src} alt={img.alt} className="max-h-[55px] object-contain drop-shadow-lg" />
+                            </div>
+                        ))}
                     </div>
                   </div>
                 </div>
