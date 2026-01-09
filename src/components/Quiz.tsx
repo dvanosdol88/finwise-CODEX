@@ -1,0 +1,137 @@
+"use client";
+
+import { useState } from "react";
+import { ChevronDown, Share2 } from "lucide-react";
+
+interface QuizOption {
+  id: string;
+  label: string;
+}
+
+const quizOptions: QuizOption[] = [
+  { id: "retire-early", label: "Retire Early" },
+  { id: "vacation-home", label: "Vacation Home" },
+  { id: "give-to-advisor", label: "Give to my advisor" },
+  { id: "invest-it", label: "Invest it" },
+  { id: "pay-off-mortgage", label: "Pay off mortgage" },
+  { id: "other", label: "Other" },
+];
+
+export function Quiz() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [hasVoted, setHasVoted] = useState(false);
+
+  const toggleOption = (id: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
+
+  const handleSubmit = async () => {
+    if (selected.size === 0) return;
+
+    try {
+      const response = await fetch("/api/quiz/vote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ votes: Array.from(selected) }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit vote");
+      }
+
+      setHasVoted(true);
+      setIsOpen(false);
+    } catch (error) {
+      console.error("Vote submission error:", error);
+      // Still close and show thanks even if API fails
+      setHasVoted(true);
+      setIsOpen(false);
+    }
+  };
+
+  return (
+    <>
+      {/* Take the Quiz trigger - renders inline */}
+      {hasVoted ? (
+        <span className="inline-flex items-center gap-1 text-green-600 font-semibold">
+          Thanks for voting!
+          <Share2 className="h-5 w-5" />
+        </span>
+      ) : (
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="inline-flex items-center gap-1 text-brand-600 font-semibold hover:text-brand-700 transition-colors"
+        >
+          Take the quiz
+          <ChevronDown
+            className={`h-5 w-5 transition-transform duration-300 ${
+              isOpen ? "rotate-180" : ""
+            }`}
+          />
+        </button>
+      )}
+
+      {/* Expandable quiz content - full width below */}
+      <div
+        className={`w-full overflow-hidden transition-all duration-500 ease-in-out ${
+          isOpen && !hasVoted ? "max-h-[500px] opacity-100 mt-6" : "max-h-0 opacity-0 mt-0"
+        }`}
+      >
+        <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 max-w-2xl mx-auto">
+          <h3 className="text-xl font-semibold text-neutral-900 mb-6 text-center">
+            What matters most to you?
+          </h3>
+
+          {/* 2 columns x 3 rows grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {quizOptions.map((option) => (
+              <label
+                key={option.id}
+                className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                  selected.has(option.id)
+                    ? "border-brand-600 bg-brand-50"
+                    : "border-neutral-200 hover:border-neutral-300 bg-white"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={selected.has(option.id)}
+                  onChange={() => toggleOption(option.id)}
+                  className="w-5 h-5 rounded border-neutral-300 text-brand-600 focus:ring-brand-500"
+                />
+                <span className="text-neutral-900 font-medium">
+                  {option.label}
+                </span>
+              </label>
+            ))}
+          </div>
+
+          {/* Submit area */}
+          <div className="mt-6 text-center">
+            <button
+              onClick={handleSubmit}
+              disabled={selected.size === 0}
+              className="px-6 py-2 bg-brand-600 text-white font-semibold rounded-full hover:bg-brand-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Submit Vote
+            </button>
+            {selected.size > 0 && (
+              <p className="mt-2 text-sm text-neutral-500">
+                {selected.size} selected
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

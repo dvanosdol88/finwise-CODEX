@@ -1,5 +1,6 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
+import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
 interface CarouselItem {
@@ -7,6 +8,7 @@ interface CarouselItem {
   description: React.ReactNode;
   image?: string | StaticImageData;
   customContent?: React.ReactNode;
+  href?: string;
 }
 
 interface ValueSectionProps {
@@ -42,10 +44,20 @@ export function ValueSection({ item }: ValueSectionProps) {
       </div>
 
       {/* Learn More Link */}
-      <button className="inline-flex items-center text-primary font-semibold text-lg hover:text-primary-dark transition-colors group">
-        Learn More
-        <ArrowRight className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
-      </button>
+      {item.href ? (
+        <Link
+          href={item.href as any}
+          className="inline-flex items-center text-primary font-semibold text-lg hover:text-primary-dark transition-colors group"
+        >
+          Learn More
+          <ArrowRight className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
+        </Link>
+      ) : (
+        <button className="inline-flex items-center text-primary font-semibold text-lg hover:text-primary-dark transition-colors group">
+          Learn More
+          <ArrowRight className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
+        </button>
+      )}
     </div>
   );
 }

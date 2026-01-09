@@ -12,6 +12,7 @@ import { CalculatorState, DEFAULT_STATE, buildQueryFromState, paramsToRecord } f
 import { formatCurrency, formatPercent } from "@/lib/format";
 import { ValueCards } from "./value-cards/ValueCards";
 import QuoteTicker from "./QuoteTicker";
+import { Quiz } from "./Quiz";
 
 const numberFormatter = new Intl.NumberFormat("en-US");
 
@@ -138,17 +139,18 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
 
   return (
     <>
-      <section className="section-shell pt-12 text-center">
+      <section className="section-shell pt-12 pb-0 text-center">
         <h1 className="text-4xl font-semibold text-green-600 sm:text-5xl">What would you do with {formatCurrency(projection.savings)}?</h1>
-        <p className="mt-4 text-lg text-neutral-900 sm:text-xl">
-          See how much you can save.
-        </p>
+        <div className="mt-4 text-lg text-neutral-900 sm:text-xl">
+          <span>See how much you can save.</span>{" "}
+          <Quiz />
+        </div>
       </section>
 
       <section className="w-full bg-neutral-50 relative overflow-hidden">
         <div className="absolute inset-x-0 top-[35%] bottom-0 bg-gradient-to-b from-transparent via-[rgba(233,238,255,0.6)] to-transparent pointer-events-none" />
 
-        <div className="relative z-10 mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8 py-20">
+        <div className="relative z-10 mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8 pt-2 pb-20">
           <div className="flex flex-col gap-8">
             {/* 1) Summary metrics */}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

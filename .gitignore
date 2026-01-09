@@ -7,3 +7,5 @@ node_modules
 
 .gemini/
 gha-creds-*.json
+.vercel
+.env*.local

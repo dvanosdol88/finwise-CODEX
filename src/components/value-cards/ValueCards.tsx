@@ -24,6 +24,7 @@ export function ValueCards({
     {
       title: 'Upgrade Your Advice',
       image: brainAiImage,
+      href: '/upgrade',
       description: (
         <>
           The Process of a <span className="font-bold text-gray-900">CFP® Professional</span>. The Rigor of a <span className="font-bold text-gray-900">CFA Charterholder</span>.
