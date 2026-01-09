@@ -68,7 +68,7 @@ export default function UpgradePage() {
 
         {/* CFA Card */}
         <article className="p-6">
-          <h2 className="text-xl font-bold mb-2">CFA Charterholder</h2>
+          <h2 className="text-xl font-bold mb-2">Chartered Financial Analyst Charterholder</h2>
           <p className="text-sm text-neutral-500 mb-4">
             Global investment credential with a heavy emphasis on ethics and
             portfolio management.
@@ -116,7 +116,7 @@ export default function UpgradePage() {
 
         {/* CFP Card */}
         <article className="p-6">
-          <h2 className="text-xl font-bold mb-2">CFP Certification</h2>
+          <h2 className="text-xl font-bold mb-2">Certified Financial Planner</h2>
           <p className="text-sm text-neutral-500 mb-4">
             Comprehensive financial planning credential (placeholder).
           </p>
