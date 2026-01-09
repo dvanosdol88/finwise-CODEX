@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
 import { inter } from "./fonts";
 
@@ -13,10 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} bg-neutral-50 text-neutral-900`}>
-        {children}
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="en">
+        <body className={`${inter.variable} bg-neutral-50 text-neutral-900`}>
+          {children}
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

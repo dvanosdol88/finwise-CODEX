@@ -1,6 +1,6 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import { ArrowRight } from 'lucide-react';
 
 interface CarouselItem {
