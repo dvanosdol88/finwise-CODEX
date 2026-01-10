@@ -125,7 +125,7 @@ export default function UpgradePage() {
         <article className="p-6">
           <h2 className="text-xl font-bold mb-2">Certified Financial Planner</h2>
           <p className="text-sm text-neutral-500 mb-4">
-            Comprehensive financial planning credential (placeholder).
+            The leading credential for creating comprehensive, client-centered financial plans.
           </p>
 
           <div className="flex gap-4 items-start">
@@ -141,7 +141,7 @@ export default function UpgradePage() {
             <div>
               <p className="font-extrabold mb-1">Online credential</p>
               <p className="text-sm text-neutral-500 mb-2">
-                Placeholder for CFP Board verification link and content.
+                Verification and credential details via CFP Board.
               </p>
               <div className="flex gap-4 text-sm font-semibold">
                 <a
@@ -153,18 +153,19 @@ export default function UpgradePage() {
                   CFP Board
                 </a>
                 <a
-                  href="#"
+                  href="https://certificates.cfp.net/611409ef-0a61-48c8-aed5-625120778436#acc.BkFE1LGJ"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-green-600 hover:underline"
                 >
-                  Verification (placeholder)
+                  Verification
                 </a>
               </div>
             </div>
           </div>
 
           <div className="mt-4 p-4 border border-dashed border-neutral-300 rounded-xl bg-neutral-50 text-sm text-neutral-600">
-            Replace with CFP verification link and a concise explanation of
-            planning scope and client benefit.
+            The CERTIFIED FINANCIAL PLANNER™ certification is the standard of excellence in financial planning. CFP® professionals meet rigorous education, training and ethical standards, and are committed to serving their clients&apos; best interests today and into the future.
           </div>
         </article>
       </section>
