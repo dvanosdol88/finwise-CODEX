@@ -74,14 +74,21 @@ export default function UpgradePage() {
             portfolio management.
           </p>
 
+          {/*
+            DESIGN NOTE: Credential logos must appear visually equal in size.
+            Use consistent container dimensions and object-contain to ensure
+            no logo appears larger or more prominent than another.
+          */}
           <div className="flex gap-4 items-start">
-            <Image
-              src="/e7e2a584-b923-4249-a863-9a49b6850ef0.png"
-              alt="CFA Institute Charterholder badge"
-              width={120}
-              height={120}
-              className="rounded-xl border border-neutral-200 bg-white"
-            />
+            <div className="w-[100px] h-[100px] rounded-xl border border-neutral-200 bg-white flex items-center justify-center p-2">
+              <Image
+                src="/e7e2a584-b923-4249-a863-9a49b6850ef0.png"
+                alt="CFA Institute Charterholder badge"
+                width={80}
+                height={80}
+                className="object-contain"
+              />
+            </div>
             <div>
               <p className="font-extrabold mb-1">Online credential</p>
               <p className="text-sm text-neutral-500 mb-2">
@@ -122,13 +129,15 @@ export default function UpgradePage() {
           </p>
 
           <div className="flex gap-4 items-start">
-            <Image
-              src="/CFP_Logomark_Primary.png"
-              alt="CFP certification mark"
-              width={120}
-              height={120}
-              className="rounded-xl border border-neutral-200 bg-white p-2"
-            />
+            <div className="w-[100px] h-[100px] rounded-xl border border-neutral-200 bg-white flex items-center justify-center p-2">
+              <Image
+                src="/CFP_Logomark_Primary.png"
+                alt="CFP certification mark"
+                width={80}
+                height={80}
+                className="object-contain"
+              />
+            </div>
             <div>
               <p className="font-extrabold mb-1">Online credential</p>
               <p className="text-sm text-neutral-500 mb-2">

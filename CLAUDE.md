@@ -27,3 +27,7 @@ npx tsc --noEmit    # Type check
 - This is a fee calculator/visualization tool
 - Keep the UI simple and focused on the calculator functionality
 - Follow existing component patterns in `src/components/`
+
+## Workflow
+
+- After any code changes, always ask: "Should I commit and push to the repo?"
