@@ -198,7 +198,7 @@ export default function Upgrade6() {
             Why Both Credentials Matter
           </h2>
           <p className="text-stone-600 mt-3 max-w-lg mx-auto">
-            No need for separate "investment person" and "planning person"—it's all integrated.
+            No need for separate &quot;investment person&quot; and &quot;planning person&quot;—it&apos;s all integrated.
           </p>
         </div>
         
@@ -224,7 +224,7 @@ export default function Upgrade6() {
           </div>
           <p className="text-stone-700 leading-relaxed">
             Both CFA and CFP require adherence to strict ethical codes. As a fee-only fiduciary, 
-            I'm legally obligated to act in your best interest—not sell you products for commission.
+            I&apos;m legally obligated to act in your best interest—not sell you products for commission.
           </p>
         </div>
       </section>
