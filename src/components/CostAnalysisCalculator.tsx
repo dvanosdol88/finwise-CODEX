@@ -29,6 +29,7 @@ const Slider = ({
   value,
   onChange,
   type,
+  decimals,
 }: {
   label: string;
   min: number;
@@ -36,18 +37,27 @@ const Slider = ({
   step: number;
   value: number;
   type?: 'currency' | 'percent';
+  decimals?: number;
   onChange: (value: number) => void;
 }) => {
-  const [inputValue, setInputValue] = useState(value.toString());
+  const formatValue = useCallback((val: number) => {
+    if (type === 'percent' || decimals !== undefined) {
+      const d = decimals !== undefined ? decimals : (type === 'percent' ? 2 : 0);
+      return val.toFixed(d);
+    }
+    return val.toString();
+  }, [type, decimals]);
+
+  const [inputValue, setInputValue] = useState(formatValue(value));
 
   useEffect(() => {
-    setInputValue(value.toString());
-  }, [value]);
+    setInputValue(formatValue(value));
+  }, [value, formatValue]);
 
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const parsed = parseFloat(event.target.value);
     if (!isNaN(parsed)) {
-      setInputValue(parsed.toString());
+      setInputValue(formatValue(parsed));
       onChange(parsed);
     }
   };
@@ -63,7 +73,8 @@ const Slider = ({
     if (isNaN(parsed)) parsed = min;
     if (parsed < min) parsed = min;
     if (parsed > max) parsed = max;
-    setInputValue(parsed.toString());
+    
+    setInputValue(formatValue(parsed));
     onChange(parsed);
   };
 
@@ -85,7 +96,8 @@ const Slider = ({
             value={inputValue}
             onChange={handleInputChange}
             onBlur={handleBlur}
-            className={`w-32 py-1 px-2 text-right font-bold text-gray-900 bg-gray-50 border border-gray-200 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all ${formatPrefix ? 'pl-6' : ''} ${formatSuffix ? 'pr-8' : ''}`}
+            style={{ width: `${Math.max(inputValue.length, 1) + 2}ch`, minWidth: '4ch' }}
+            className={`py-1 px-2 text-right font-bold text-gray-900 bg-gray-50 border border-gray-200 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all ${formatPrefix ? 'pl-6' : ''} ${formatSuffix ? 'pr-8' : ''}`}
           />
           {formatSuffix && (
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">{formatSuffix}</span>
@@ -266,6 +278,7 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
                       value={state.annualFeePercent}
                       onChange={(value) => setState((prev) => ({ ...prev, annualFeePercent: value }))}
                       type="percent"
+                      decimals={2}
                     />
                     <Slider
                       label="Portfolio value"
@@ -284,6 +297,7 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
                       value={state.annualGrowthPercent}
                       onChange={(value) => setState((prev) => ({ ...prev, annualGrowthPercent: value }))}
                       type="percent"
+                      decimals={1}
                     />
                     <Slider
                       label="Years"
