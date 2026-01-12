@@ -70,6 +70,8 @@ const Slider = ({
   const formatPrefix = type === 'currency' ? '$' : '';
   const formatSuffix = type === 'percent' ? '%' : '';
 
+  const percent = ((value - min) / (max - min)) * 100;
+
   return (
     <div className="flex flex-col gap-3 w-full p-4 bg-white rounded-lg shadow-sm border border-gray-100">
       <div className="flex justify-between items-center">
@@ -98,7 +100,8 @@ const Slider = ({
           step={step}
           value={value}
           onChange={handleSliderChange}
-          className="custom-slider w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600 hover:accent-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+          className="custom-slider"
+          style={{ '--value-percent': `${percent}%` } as React.CSSProperties}
         />
       </div>
       <div className="flex justify-between text-xs text-gray-400 -mt-2 px-1">
