@@ -171,101 +171,104 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
               </div>
             </div>
 
-            {/* 2) Chart — HERO */}
-            <div className="card p-6 lg:p-8">
-              <div className="flex flex-col gap-4">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-tightish text-neutral-500">Growth vs. fee drag</p>
-                    <h3 className="text-lg font-semibold text-neutral-900">Your dollars over time</h3>
+            {/* 2) Chart and Controls Dashboard */}
+            <div className="calculator-dashboard">
+              {/* Chart Column */}
+              <div className="chart-column card p-6 lg:p-8">
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-tightish text-neutral-500">Growth vs. fee drag</p>
+                      <h3 className="text-lg font-semibold text-neutral-900">Your dollars over time</h3>
+                    </div>
+                    <div className="text-right text-xs text-neutral-500">
+                      <p>Without fees: {formatCurrency(projection.finalValueWithoutFees)}</p>
+                      <p>With {formatPercent(state.annualFeePercent)} fees: {formatCurrency(projection.finalValueWithFees)}</p>
+                    </div>
                   </div>
-                  <div className="text-right text-xs text-neutral-500">
-                    <p>Without fees: {formatCurrency(projection.finalValueWithoutFees)}</p>
-                    <p>With {formatPercent(state.annualFeePercent)} fees: {formatCurrency(projection.finalValueWithFees)}</p>
-                  </div>
-                </div>
 
-                <div className="h-[320px] w-full lg:h-[420px]">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={projection.series} margin={{ top: 10, right: 16, left: 0, bottom: 0 }}>
-                      <defs>
-                        <linearGradient id="greyGradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#9ca3af" stopOpacity={0.3} />
-                          <stop offset="100%" stopColor="#9ca3af" stopOpacity={0.05} />
-                        </linearGradient>
-                        <linearGradient id="greenGradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#22c55e" stopOpacity={0.25} />
-                          <stop offset="100%" stopColor="#22c55e" stopOpacity={0.02} />
-                        </linearGradient>
-                      </defs>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                      <XAxis dataKey="year" tickLine={false} axisLine={false} tick={{ fill: "#64748b", fontSize: 12 }} />
-                      <YAxis
-                        tickLine={false}
-                        axisLine={false}
-                        tick={{ fill: "#64748b", fontSize: 12 }}
-                        tickFormatter={(value) => `${value / 1000}k`}
-                      />
-                      <Tooltip
-                        formatter={(value: number) => formatCurrency(value)}
-                        labelFormatter={(label) => `${label} years`}
-                        contentStyle={{ borderRadius: 12, borderColor: "#e2e8f0" }}
-                      />
-                      <Area type="monotone" dataKey="withoutFees" stroke="#6366f1" fill="url(#greyGradient)" />
-                      <Area type="monotone" dataKey="withFees" stroke="#22c55e" fill="url(#greenGradient)" />
-                    </AreaChart>
-                  </ResponsiveContainer>
+                  <div className="h-[320px] w-full lg:h-[420px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={projection.series} margin={{ top: 10, right: 16, left: 0, bottom: 0 }}>
+                        <defs>
+                          <linearGradient id="greyGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#9ca3af" stopOpacity={0.3} />
+                            <stop offset="100%" stopColor="#9ca3af" stopOpacity={0.05} />
+                          </linearGradient>
+                          <linearGradient id="greenGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#22c55e" stopOpacity={0.25} />
+                            <stop offset="100%" stopColor="#22c55e" stopOpacity={0.02} />
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                        <XAxis dataKey="year" tickLine={false} axisLine={false} tick={{ fill: "#64748b", fontSize: 12 }} />
+                        <YAxis
+                          tickLine={false}
+                          axisLine={false}
+                          tick={{ fill: "#64748b", fontSize: 12 }}
+                          tickFormatter={(value) => `${value / 1000}k`}
+                        />
+                        <Tooltip
+                          formatter={(value: number) => formatCurrency(value)}
+                          labelFormatter={(label) => `${label} years`}
+                          contentStyle={{ borderRadius: 12, borderColor: "#e2e8f0" }}
+                        />
+                        <Area type="monotone" dataKey="withoutFees" stroke="#6366f1" fill="url(#greyGradient)" />
+                        <Area type="monotone" dataKey="withFees" stroke="#22c55e" fill="url(#greenGradient)" />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* 3) Controls — subordinate */}
-            <div className="card p-6">
-              <div className="flex flex-col gap-4">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-tightish text-neutral-900">Explore inputs</p>
-                  <p className="mt-2 text-sm text-neutral-900">
-                    Adjust the sliders to interrogate the outcome curve. Links preserve your exact scenario (and UTMs).
-                  </p>
-                </div>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Slider
-                    label="Portfolio value"
-                    min={50000}
-                    max={5000000}
-                    step={50000}
-                    value={state.portfolioValue}
-                    onChange={(value) => setState((prev) => ({ ...prev, portfolioValue: value }))}
-                  />
-                  <Slider
-                    label="Years"
-                    min={1}
-                    max={40}
-                    step={1}
-                    value={state.years}
-                    suffix=" yrs"
-                    onChange={(value) => setState((prev) => ({ ...prev, years: value }))}
-                  />
-                  <Slider
-                    label="Expected annual growth"
-                    min={0}
-                    max={15}
-                    step={0.1}
-                    value={state.annualGrowthPercent}
-                    suffix="%"
-                    decimals={1}
-                    onChange={(value) => setState((prev) => ({ ...prev, annualGrowthPercent: value }))}
-                  />
-                  <Slider
-                    label="Advisory fee"
-                    min={0}
-                    max={3}
-                    step={0.05}
-                    value={state.annualFeePercent}
-                    suffix="%"
-                    decimals={2}
-                    onChange={(value) => setState((prev) => ({ ...prev, annualFeePercent: value }))}
-                  />
+              {/* Inputs Column */}
+              <div className="inputs-column card p-6">
+                <div className="flex flex-col gap-4">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-tightish text-neutral-900">Explore inputs</p>
+                    <p className="mt-2 text-sm text-neutral-900">
+                      Adjust the sliders to interrogate the outcome curve. Links preserve your exact scenario (and UTMs).
+                    </p>
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Slider
+                      label="Portfolio value"
+                      min={50000}
+                      max={5000000}
+                      step={50000}
+                      value={state.portfolioValue}
+                      onChange={(value) => setState((prev) => ({ ...prev, portfolioValue: value }))}
+                    />
+                    <Slider
+                      label="Years"
+                      min={1}
+                      max={40}
+                      step={1}
+                      value={state.years}
+                      suffix=" yrs"
+                      onChange={(value) => setState((prev) => ({ ...prev, years: value }))}
+                    />
+                    <Slider
+                      label="Expected annual growth"
+                      min={0}
+                      max={15}
+                      step={0.1}
+                      value={state.annualGrowthPercent}
+                      suffix="%"
+                      decimals={1}
+                      onChange={(value) => setState((prev) => ({ ...prev, annualGrowthPercent: value }))}
+                    />
+                    <Slider
+                      label="Advisory fee"
+                      min={0}
+                      max={3}
+                      step={0.05}
+                      value={state.annualFeePercent}
+                      suffix="%"
+                      decimals={2}
+                      onChange={(value) => setState((prev) => ({ ...prev, annualFeePercent: value }))}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

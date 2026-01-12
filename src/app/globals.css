@@ -25,3 +25,26 @@ a:hover {
 .card {
   @apply rounded-2xl border border-neutral-200 bg-white shadow-sm;
 }
+
+.calculator-dashboard {
+    display: flex;
+    flex-direction: row; /* Side-by-side on desktop */
+    gap: 2rem; /* Space between the graph and sliders */
+    align-items: flex-start;
+  }
+  .chart-column {
+    flex: 2; /* Dominant width for the visual */
+    min-width: 0; /* Critical for preventing chart overflow in flex containers */
+  }
+  .inputs-column {
+    flex: 1; /* Narrower width for controls */
+  }
+  @media (max-width: 768px) {
+    .calculator-dashboard {
+      flex-direction: column; /* Stacked on mobile */
+    }
+    .chart-column, .inputs-column {
+      width: 100%;
+      flex: none;
+    }
+  }
