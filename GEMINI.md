@@ -57,3 +57,4 @@ Ask before:
 - NEVER recreate files that appear to be intentionally deleted
 - If an import points to a missing file, DELETE the import—don't create the file
 - Follow existing patterns in the codebase
+- After creating any web page or editing a web page or app, ALWAYS use a tool (like Playwright MCP) to perform end-to-end testing, ensuring visual regression and functional integrity.
