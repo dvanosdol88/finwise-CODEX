@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { FeatureSection } from "@/components/improve/FeatureSection";
 import { ComparisonCard } from "@/components/improve/ComparisonCard";
+import { HeroImage } from "@/components/improve/HeroImage";
 import {
   features,
   comparisonCards,
@@ -89,20 +89,11 @@ export default function ImproveYourTools() {
           </div>
 
           {/* Hero Visual */}
-          <div className="mt-10 bg-white rounded-2xl shadow-sm border border-neutral-200 p-4 sm:p-6 max-w-4xl mx-auto overflow-hidden">
-            <Image
-              src="/assets/rightcapital/cashflow-waterfall.gif"
-              alt="Cash flow waterfall animation showing income and expense flows over time"
-              width={900}
-              height={500}
-              className="w-full h-auto rounded-lg"
-              loading="eager"
-              unoptimized
-            />
-            <p className="mt-3 text-sm text-neutral-500 text-center">
-              Dynamic cash flow visualization—see exactly where your money goes
-            </p>
-          </div>
+          <HeroImage
+            src="/assets/rightcapital/cashflow-waterfall.gif"
+            alt="Cash flow waterfall animation showing income and expense flows over time"
+            caption="Dynamic cash flow visualization—see exactly where your money goes"
+          />
         </section>
 
         {/* FEATURE SECTIONS */}

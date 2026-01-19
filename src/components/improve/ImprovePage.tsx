@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 import { FeatureSection } from "@/components/improve/FeatureSection";
 import { ComparisonCard } from "@/components/improve/ComparisonCard";
 import {
@@ -87,15 +91,17 @@ export function ImprovePage({ version }: ImprovePageProps) {
           </div>
 
           <div className="mt-10 bg-white rounded-2xl shadow-sm border border-neutral-200 p-4 sm:p-6 max-w-4xl mx-auto overflow-hidden">
-            <Image
-              src="/assets/rightcapital/cashflow-waterfall.gif"
-              alt="Cash flow waterfall animation showing income and expense flows over time"
-              width={900}
-              height={500}
-              className="w-full h-auto rounded-lg"
-              loading="lazy"
-              unoptimized
-            />
+            <Zoom>
+              <Image
+                src="/assets/rightcapital/cashflow-waterfall.gif"
+                alt="Cash flow waterfall animation showing income and expense flows over time"
+                width={900}
+                height={500}
+                className="w-full h-auto rounded-lg cursor-zoom-in"
+                loading="lazy"
+                unoptimized
+              />
+            </Zoom>
             <p className="mt-3 text-sm text-neutral-500 text-center">
               {variant.hero.caption}
             </p>

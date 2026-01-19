@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 import type { Feature } from "@/config/improvePageConfig";
 
 interface FeatureSectionProps {
@@ -12,15 +14,17 @@ export function FeatureSection({ feature }: FeatureSectionProps) {
 
   const imageElement = (
     <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-4 overflow-hidden">
-      <Image
-        src={feature.image}
-        alt={feature.imageAlt}
-        width={600}
-        height={400}
-        className="w-full h-auto rounded-lg"
-        loading="lazy"
-        unoptimized={feature.isAnimated}
-      />
+      <Zoom>
+        <Image
+          src={feature.image}
+          alt={feature.imageAlt}
+          width={600}
+          height={400}
+          className="w-full h-auto rounded-lg cursor-zoom-in"
+          loading="lazy"
+          unoptimized={feature.isAnimated}
+        />
+      </Zoom>
     </div>
   );
 
