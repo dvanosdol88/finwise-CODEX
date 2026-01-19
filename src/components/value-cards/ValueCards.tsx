@@ -45,7 +45,7 @@ export function ValueCards({
     {
       title: 'Improve Your Tools',
       image: improveToolsImage,
-      href: '/improve',
+      href: '/improve1',
       description: (
         <>
           <span className="font-bold text-gray-900">Better Tools = Better Information = Better Decisions.</span>
