@@ -198,7 +198,7 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
       <section className="w-full bg-neutral-50 relative overflow-hidden">
         <div className="absolute inset-x-0 top-[35%] bottom-0 bg-gradient-to-b from-transparent via-[rgba(233,238,255,0.6)] to-transparent pointer-events-none" />
 
-        <div className="relative z-10 mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8 pt-2 pb-20">
+        <div className="relative z-10 mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8 pt-2 pb-20">
           <div className="flex flex-col gap-8">
             {/* 1) Summary metrics */}
             <ScrollReveal className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -219,62 +219,61 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
               </div>
             </ScrollReveal>
 
-            {/* 2) Chart and Controls Dashboard */}
-            <div className="calculator-dashboard">
-              {/* Chart Column - PRO DASHBOARD VERSION */}
-              {/* 
-                  NOTE: Replaced original light-theme chart with ProFeeChart (Dark Mode).
-                  To undo, see src/components/CostAnalysisCalculator.original.tsx
-              */}
-              <ScrollReveal className="chart-column h-[450px] lg:h-[500px]" delay={0.2}>
+            {/* 2) Unified Calculator Card */}
+            <ScrollReveal delay={0.2} className="card bg-white overflow-hidden shadow-xl ring-1 ring-black/5">
+              
+              {/* Chart Section - Full Width */}
+              <div className="h-[450px] lg:h-[550px] w-full bg-neutral-900 relative">
                 <ProFeeChart data={projection.series} finalLost={projection.savings} />
-              </ScrollReveal>
+              </div>
 
-              {/* Inputs Column */}
-              <div className="inputs-column card p-6">
-                <div className="flex flex-col gap-4">
-                  <div className="grid gap-4 sm:grid-cols-1">
-                    <Slider
-                      label="Advisory fee"
-                      min={0}
-                      max={3}
-                      step={0.05}
-                      value={state.annualFeePercent}
-                      onChange={(value) => setState((prev) => ({ ...prev, annualFeePercent: value }))}
-                      type="percent"
-                      decimals={2}
-                    />
-                    <Slider
-                      label="Portfolio value"
-                      min={50000}
-                      max={5000000}
-                      step={50000}
-                      value={state.portfolioValue}
-                      onChange={(value) => setState((prev) => ({ ...prev, portfolioValue: value }))}
-                      type="currency"
-                    />
-                    <Slider
-                      label="Expected annual growth"
-                      min={0}
-                      max={15}
-                      step={0.1}
-                      value={state.annualGrowthPercent}
-                      onChange={(value) => setState((prev) => ({ ...prev, annualGrowthPercent: value }))}
-                      type="percent"
-                      decimals={1}
-                    />
-                    <Slider
-                      label="Years"
-                      min={1}
-                      max={40}
-                      step={1}
-                      value={state.years}
-                      onChange={(value) => setState((prev) => ({ ...prev, years: value }))}
-                    />
-                  </div>
+              {/* Inputs Section - Below Chart */}
+              <div className="p-6 lg:p-8 bg-white border-t border-gray-100">
+                <h3 className="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-6">
+                  Adjust your scenario
+                </h3>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <Slider
+                    label="Advisory fee"
+                    min={0}
+                    max={3}
+                    step={0.05}
+                    value={state.annualFeePercent}
+                    onChange={(value) => setState((prev) => ({ ...prev, annualFeePercent: value }))}
+                    type="percent"
+                    decimals={2}
+                  />
+                  <Slider
+                    label="Portfolio value"
+                    min={50000}
+                    max={5000000}
+                    step={50000}
+                    value={state.portfolioValue}
+                    onChange={(value) => setState((prev) => ({ ...prev, portfolioValue: value }))}
+                    type="currency"
+                  />
+                  <Slider
+                    label="Annual growth"
+                    min={0}
+                    max={15}
+                    step={0.1}
+                    value={state.annualGrowthPercent}
+                    onChange={(value) => setState((prev) => ({ ...prev, annualGrowthPercent: value }))}
+                    type="percent"
+                    decimals={1}
+                  />
+                  <Slider
+                    label="Time horizon (Years)"
+                    min={1}
+                    max={40}
+                    step={1}
+                    value={state.years}
+                    onChange={(value) => setState((prev) => ({ ...prev, years: value }))}
+                  />
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* 4) Actions */}
             <div className="flex flex-wrap items-center gap-3">
