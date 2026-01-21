@@ -201,84 +201,66 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
 
         <div className="relative z-10 mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8 pt-2 pb-20">
           <div className="flex flex-col gap-8">
-            {/* 1) Summary metrics */}
-            <ScrollReveal className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="card p-4">
-                <p className="text-xs font-semibold uppercase tracking-tightish text-neutral-500">Projected value (no fees)</p>
-                <p className="mt-2 text-2xl font-semibold text-neutral-900">{formatCurrency(projection.finalValueWithoutFees)}</p>
-                <p className="text-sm text-neutral-600">Over {state.years} years at {formatPercent(state.annualGrowthPercent)}.</p>
+            
+            {/* Unified Calculator Card */}
+            <ScrollReveal className="card bg-white overflow-hidden shadow-xl ring-1 ring-black/5 rounded-2xl">
+              
+              {/* Chart Section - Full Width */}
+              <div className="h-[450px] lg:h-[550px] w-full bg-neutral-900 relative">
+                <ProFeeChart 
+                  data={projection.series} 
+                  finalLost={projection.savings}
+                  finalValueWithoutFees={projection.finalValueWithoutFees}
+                  finalValueWithFees={projection.finalValueWithFees}
+                />
               </div>
-              <div className="card p-4">
-                <p className="text-xs font-semibold uppercase tracking-tightish text-neutral-500">Projected value (with fees)</p>
-                <p className="mt-2 text-2xl font-semibold text-neutral-900">{formatCurrency(projection.finalValueWithFees)}</p>
-                <p className="text-sm text-neutral-600">Assuming {formatPercent(state.annualFeePercent)} advisory fees.</p>
-              </div>
-              <div className="card p-4">
-                <p className="text-xs font-semibold uppercase tracking-tightish text-neutral-500">Lost to fees</p>
-                <p className="mt-2 text-2xl font-semibold text-danger-600">{formatCurrency(projection.savings)}</p>
-                <p className="text-sm text-neutral-600">That is money that could keep compounding for you.</p>
-              </div>
-            </ScrollReveal>
 
-            {/* 2) Unified Calculator Card - Full Width with Chart Left, Inputs Right */}
-            <ScrollReveal delay={0.2} className="card bg-white overflow-hidden shadow-xl ring-1 ring-black/5">
-              <div className="flex flex-col lg:flex-row">
-                {/* Chart Section - Left Side */}
-                <div className="h-[400px] lg:h-[500px] w-full lg:w-2/3 bg-neutral-900 relative">
-                  <ProFeeChart data={projection.series} finalLost={projection.savings} />
-                </div>
-
-                {/* Inputs Section - Right Side */}
-                <div className="w-full lg:w-1/3 p-6 lg:p-8 bg-white border-t lg:border-t-0 lg:border-l border-gray-100 flex flex-col justify-center">
-                  <h3 className="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-6">
-                    Adjust your scenario
-                  </h3>
-
-                  <div className="flex flex-col gap-4">
-                    <Slider
-                      label="Advisory fee"
-                      min={0}
-                      max={3}
-                      step={0.05}
-                      value={state.annualFeePercent}
-                      onChange={(value) => setState((prev) => ({ ...prev, annualFeePercent: value }))}
-                      type="percent"
-                      decimals={2}
-                    />
-                    <Slider
-                      label="Portfolio value"
-                      min={50000}
-                      max={5000000}
-                      step={50000}
-                      value={state.portfolioValue}
-                      onChange={(value) => setState((prev) => ({ ...prev, portfolioValue: value }))}
-                      type="currency"
-                    />
-                    <Slider
-                      label="Annual growth"
-                      min={0}
-                      max={15}
-                      step={0.1}
-                      value={state.annualGrowthPercent}
-                      onChange={(value) => setState((prev) => ({ ...prev, annualGrowthPercent: value }))}
-                      type="percent"
-                      decimals={1}
-                    />
-                    <Slider
-                      label="Time horizon (Years)"
-                      min={1}
-                      max={40}
-                      step={1}
-                      value={state.years}
-                      onChange={(value) => setState((prev) => ({ ...prev, years: value }))}
-                    />
-                  </div>
+              {/* Inputs Section - Below Chart */}
+              <div className="p-6 lg:p-8 bg-white border-t border-gray-100">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <Slider
+                    label="Advisory fee"
+                    min={0}
+                    max={3}
+                    step={0.05}
+                    value={state.annualFeePercent}
+                    onChange={(value) => setState((prev) => ({ ...prev, annualFeePercent: value }))}
+                    type="percent"
+                    decimals={2}
+                  />
+                  <Slider
+                    label="Portfolio value"
+                    min={50000}
+                    max={5000000}
+                    step={50000}
+                    value={state.portfolioValue}
+                    onChange={(value) => setState((prev) => ({ ...prev, portfolioValue: value }))}
+                    type="currency"
+                  />
+                  <Slider
+                    label="Annual growth"
+                    min={0}
+                    max={15}
+                    step={0.1}
+                    value={state.annualGrowthPercent}
+                    onChange={(value) => setState((prev) => ({ ...prev, annualGrowthPercent: value }))}
+                    type="percent"
+                    decimals={1}
+                  />
+                  <Slider
+                    label="Time horizon (Years)"
+                    min={1}
+                    max={40}
+                    step={1}
+                    value={state.years}
+                    onChange={(value) => setState((prev) => ({ ...prev, years: value }))}
+                  />
                 </div>
               </div>
             </ScrollReveal>
 
-            {/* 3) Savings Meters Section */}
-            <ScrollReveal delay={0.3}>
+            {/* Savings Meters Section */}
+            <ScrollReveal delay={0.2}>
               <div className="mb-6">
                 <p className="text-xs font-semibold uppercase tracking-tightish text-neutral-500">What could you do with the savings?</p>
                 <h3 className="text-xl font-semibold text-neutral-900">
@@ -288,22 +270,6 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
               <SavingsMetersGrid savings={projection.savings} />
             </ScrollReveal>
 
-            {/* 4) Actions */}
-            <div className="flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                onClick={copyShareUrl}
-                className="inline-flex items-center gap-2 rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700"
-              >
-                <Copy size={16} /> Share this scenario
-              </button>
-              <Link href={{ pathname: "/save", query: linkQuery }} className="text-sm font-semibold text-neutral-900 no-underline hover:text-neutral-700">
-                See deeper proof →
-              </Link>
-              <Link href={{ pathname: "/how-it-works", query: linkQuery }} className="text-sm font-semibold text-neutral-900 no-underline hover:text-neutral-700">
-                How it works →
-              </Link>
-            </div>
           </div>
         </div>
       </section>
