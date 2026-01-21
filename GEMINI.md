@@ -3,7 +3,7 @@
 
 ---
 
-## Project: finwise-CODEX (you-are-paying-too-much.com)
+## Project: RIA-marketing-page (you-are-paying-too-much.com)
 
 A fee calculator/visualization tool showing the impact of investment fees over time.
 
@@ -58,3 +58,14 @@ Ask before:
 - If an import points to a missing file, DELETE the import—don't create the file
 - Follow existing patterns in the codebase
 - After creating any web page or editing a web page or app, ALWAYS use a tool (like Playwright MCP) to perform end-to-end testing, ensuring visual regression and functional integrity.
+
+## Workflow
+
+-  If a change has been made, ALWAYS test it in the browser using Playwright (or similar) tools
+-  ALWAYS check README.md on every commit.  Was this change important enought to change the main README page?  If so, make that change.
+-  After testing your changes, (1) if successful: always commit and push to remote, (2) if UNsuccessful: fix issues or ask David what to do next.
+
+## ALWAYS:
+1. Test any changes in the browser using your Playwright (or similar) tools
+2. Check the main README.md.  Is this change important enough to modify the README file?  If so, CHANGE the README.md file
+3. Commit and Push changes after (1) and (2)

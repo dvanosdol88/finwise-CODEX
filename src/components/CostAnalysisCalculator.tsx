@@ -14,6 +14,8 @@ import { ValueCards } from "./value-cards/ValueCards";
 import QuoteTicker from "./QuoteTicker";
 import { Quiz } from "./Quiz";
 
+import { ScrollReveal } from "@/components/ScrollReveal";
+
 const numberFormatter = new Intl.NumberFormat("en-US");
 
 type Props = {
@@ -198,7 +200,7 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
         <div className="relative z-10 mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8 pt-2 pb-20">
           <div className="flex flex-col gap-8">
             {/* 1) Summary metrics */}
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <ScrollReveal className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <div className="card p-4">
                 <p className="text-xs font-semibold uppercase tracking-tightish text-neutral-500">Projected value (no fees)</p>
                 <p className="mt-2 text-2xl font-semibold text-neutral-900">{formatCurrency(projection.finalValueWithoutFees)}</p>
@@ -214,12 +216,12 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
                 <p className="mt-2 text-2xl font-semibold text-danger-600">{formatCurrency(projection.savings)}</p>
                 <p className="text-sm text-neutral-600">That is money that could keep compounding for you.</p>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* 2) Chart and Controls Dashboard */}
             <div className="calculator-dashboard">
               {/* Chart Column */}
-              <div className="chart-column card p-6 lg:p-8">
+              <ScrollReveal className="chart-column card p-6 lg:p-8" delay={0.2}>
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
@@ -264,7 +266,7 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
                     </ResponsiveContainer>
                   </div>
                 </div>
-              </div>
+              </ScrollReveal>
 
               {/* Inputs Column */}
               <div className="inputs-column card p-6">

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo } from 'react';
+import { ScrollReveal } from '@/components/ScrollReveal';
 import { ValueSection } from './ValueSection';
 import brainAiImage from './brain-plus-AI (3)_1764083448075.png';
 import piggyBankImage from './save_money_piggy_bank_correct_color_1764085668526.png';
@@ -74,9 +75,9 @@ export function ValueCards({
         {/* --- Linear Layout --- */}
         <div className="flex flex-col w-full mx-auto divide-y divide-gray-100">
             {cards.map((item, index) => (
-              <div key={index}>
+              <ScrollReveal key={index} delay={index * 0.2}>
                 <ValueSection item={item} />
-              </div>
+              </ScrollReveal>
             ))}
         </div>
       </div>
