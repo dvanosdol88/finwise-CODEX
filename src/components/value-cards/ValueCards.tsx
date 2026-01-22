@@ -23,7 +23,7 @@ export function ValueCards({
 
   const cards = useMemo(() => [
     {
-      title: 'Upgrade Your Advice',
+      title: <><span className="text-green-600">Upgrade</span> Your Advice</>,
       image: brainAiImage,
       href: '/upgrade',
       description: (
@@ -44,9 +44,10 @@ export function ValueCards({
       ),
     },
     {
-      title: 'Improve Your Tools',
+      title: <><span className="text-green-600">Improve</span> Your Tools</>,
       image: improveToolsImage,
-      href: '/improve1',
+      href: '/improve',
+      imageClassName: "h-40 w-auto object-contain",
       description: (
         <>
           <span className="font-bold text-gray-900">Better Tools = Better Information = Better Decisions.</span>
@@ -54,8 +55,10 @@ export function ValueCards({
       ),
     },
     {
-      title: 'Save a TON of Money',
+      title: <><span className="text-green-600">Save</span> a TON of Money</>,
       image: piggyBankImage,
+      href: '/save',
+      imageClassName: "h-40 w-auto object-contain",
       description: (
         <>
           Keep more of your investment growth with our $100/month flat fee.

@@ -61,8 +61,19 @@ const CustomHUDTooltip = ({ active, payload, label }: any) => {
             </p>
           </div>
 
-          {/* Actual Value */}
+          {/* The Gap / Loss */}
           <div>
+            <div className="flex justify-between items-center text-xs text-red-500 mb-1">
+              <span>Fee Impact</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-red-500"></span>
+            </div>
+            <p className="text-xl font-bold text-red-600 tabular-nums">
+              -{formatCurrency(lostAmount)}
+            </p>
+          </div>
+
+          {/* Actual Value */}
+          <div className="pt-2 border-t border-slate-100 mt-2">
             <div className="flex justify-between items-center text-xs text-slate-500 mb-1">
               <span>Actual Value</span>
               <span className="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
@@ -70,16 +81,6 @@ const CustomHUDTooltip = ({ active, payload, label }: any) => {
             <p className="text-xl font-bold text-slate-900 tabular-nums">
               {formatCurrency(withFees)}
             </p>
-          </div>
-
-          {/* The Gap / Loss */}
-          <div className="pt-2 border-t border-slate-100 mt-2">
-            <div className="flex justify-between items-center">
-              <span className="text-xs text-red-500 font-semibold uppercase">Fee Impact</span>
-              <span className="text-red-600 font-bold tabular-nums">
-                -{formatCurrency(lostAmount)}
-              </span>
-            </div>
           </div>
         </div>
       </motion.div>
@@ -99,12 +100,12 @@ export function ProFeeChart({ data, finalLost, finalValueWithoutFees, finalValue
           <p className="text-3xl font-bold text-emerald-700 tracking-tight">{formatCurrency(finalValueWithoutFees)}</p>
         </div>
         <div>
+           <p className="text-xs font-semibold text-red-500 uppercase tracking-wider mb-1">Lost to Fees</p>
+           <p className="text-3xl font-bold text-red-600 tracking-tight">-{formatCurrency(finalLost)}</p>
+        </div>
+        <div>
           <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">With Fees</p>
           <p className="text-2xl font-semibold text-slate-600 tracking-tight">{formatCurrency(finalValueWithFees)}</p>
-        </div>
-        <div className="pt-2">
-           <p className="text-xs font-semibold text-red-500 uppercase tracking-wider mb-1">Lost to Fees</p>
-           <p className="text-2xl font-bold text-red-600 tracking-tight">-{formatCurrency(finalLost)}</p>
         </div>
       </div>
 
@@ -123,7 +124,7 @@ export function ProFeeChart({ data, finalLost, finalValueWithoutFees, finalValue
               </linearGradient>
             </defs>
 
-            <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#cbd5e1" vertical={false} />
             
             <XAxis 
               dataKey="year" 

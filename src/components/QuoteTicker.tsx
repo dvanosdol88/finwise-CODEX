@@ -183,7 +183,7 @@ export default function QuoteTicker({
         .ticker-scroll {
           will-change: transform;
         }
-        .ticker-scroll:hover {
+        .ticker-wrapper:hover .ticker-scroll {
           animation-play-state: paused;
         }
       `}</style>
@@ -239,7 +239,7 @@ export default function QuoteTicker({
         </div>
       )}
 
-      <div className="relative py-8 overflow-hidden bg-transparent">
+      <div className="relative py-8 overflow-hidden bg-transparent ticker-wrapper">
         {showLabel && (
           <div className="text-center mb-[18px]">
             <span className="text-base font-medium tracking-wide text-stone-800">
