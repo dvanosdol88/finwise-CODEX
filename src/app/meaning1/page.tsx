@@ -56,13 +56,13 @@ export default function TasksMeaningPage() {
               Jensen Huang, the visionary founder of NVIDIA, recently articulated a distinction that perfectly captures why this firm exists. He spoke about the difference between the <strong>Task</strong> of a professional and the <strong>Meaning</strong> of their work.
             </p>
             <p>
-              In financial services, the "Tasks" are endless: compliance checks, rebalancing, trade execution, data entry, reporting. For decades, clients have been charged huge fees primarily to cover the human labor required to perform these tasks.
+              In financial services, the &quot;Tasks&quot; are endless: compliance checks, rebalancing, trade execution, data entry, reporting. For decades, clients have been charged huge fees primarily to cover the human labor required to perform these tasks.
             </p>
             <p className="font-serif text-2xl italic text-stone-800 border-l-4 border-emerald-500 pl-6 py-2 my-8 bg-stone-50">
-              "We built our infrastructure to strip away the administrative noise so that every minute I spend with you is focused on your life, not your paperwork."
+              &quot;We built our infrastructure to strip away the administrative noise so that every minute I spend with you is focused on your life, not your paperwork.&quot;
             </p>
             <p>
-              We believe that if technology can handle the Tasks with perfect precision and near-zero cost, the savings shouldn't go to our margins. They should go to you—in the form of lower fees and deeper attention.
+              We believe that if technology can handle the Tasks with perfect precision and near-zero cost, the savings shouldn&apos;t go to our margins. They should go to you—in the form of lower fees and deeper attention.
             </p>
           </div>
         </div>
@@ -98,7 +98,7 @@ export default function TasksMeaningPage() {
                 <ul className="space-y-4">
                   <li className="flex items-start gap-3">
                     <FileText className="w-5 h-5 text-stone-400 mt-0.5" />
-                    <span className="text-stone-600"><strong>Compliance & Reporting</strong><br/>Ensuring every 'i' is dotted and 't' is crossed.</span>
+                    <span className="text-stone-600"><strong>Compliance & Reporting</strong><br/>Ensuring every &apos;i&apos; is dotted and &apos;t&apos; is crossed.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Activity className="w-5 h-5 text-stone-400 mt-0.5" />
@@ -145,7 +145,7 @@ export default function TasksMeaningPage() {
                 </ul>
                 <div className="mt-8 pt-6 border-t border-emerald-800">
                   <p className="text-xs font-bold text-emerald-400 uppercase mb-2">This Is What You Hire Us For</p>
-                  <p className="text-emerald-200 text-sm">You aren't paying me to read contracts or stare at tickers. You are paying me to know you.</p>
+                  <p className="text-emerald-200 text-sm">You aren&apos;t paying me to read contracts or stare at tickers. You are paying me to know you.</p>
                 </div>
               </div>
             </div>
@@ -179,7 +179,7 @@ export default function TasksMeaningPage() {
               In traditional firms, advisors spend 60% of their time on paperwork (Tasks) and 40% on you (Meaning). This puts a hard cap on how many families they can truly help.
             </p>
             <p className="text-lg text-stone-600 leading-relaxed">
-              We have inverted that ratio. We use advanced technology to automate the protection of your data, so I can dedicate 100% of my time to the protection of your future. We don't use tech to replace the human connection; we use it to clear the room for it.
+              We have inverted that ratio. We use advanced technology to automate the protection of your data, so I can dedicate 100% of my time to the protection of your future. We don&apos;t use tech to replace the human connection; we use it to clear the room for it.
             </p>
           </div>
         </div>
@@ -213,7 +213,7 @@ export default function TasksMeaningPage() {
       {/* --- FOOTER --- */}
       <footer className="bg-stone-50 py-12 px-6 border-t border-stone-200 text-center text-stone-500 text-sm">
         <p className="max-w-2xl mx-auto">
-          Jensen Huang's "Task vs. Meaning" concept is a philosophical framework we apply to wealth management.
+          Jensen Huang&apos;s &quot;Task vs. Meaning&quot; concept is a philosophical framework we apply to wealth management.
           Advisory services are provided by David J. Van Osdol, CFA, CFP.
         </p>
       </footer>

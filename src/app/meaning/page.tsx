@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 
 /**
  * Meaning page
@@ -200,11 +201,12 @@ export default function MeaningPage() {
           <div className="lg:col-span-4">
             <div className="rounded-2xl border bg-white p-5">
               <div className="flex items-center gap-4">
-                <img
+                <Image
                   src="/DVO%20Head%20Shot%20picture.jpg"
                   alt="Advisor headshot"
-                  className="h-20 w-20 rounded-xl object-cover"
-                  loading="lazy"
+                  width={80}
+                  height={80}
+                  className="rounded-xl object-cover"
                 />
                 <div>
                   <div className="text-sm font-semibold">Fiduciary-first</div>
