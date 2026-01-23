@@ -1,4 +1,5 @@
 import React from 'react';
+import { DesignerNav } from "@/components/DesignerNav";
 
 export const metadata = {
   title: "Upgrade: Fiduciary + CFA + CFP®",
@@ -47,6 +48,7 @@ export default function Upgrade8() {
 
   return (
     <>
+      <DesignerNav />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

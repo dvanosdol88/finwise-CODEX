@@ -1,9 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { DesignerNav } from "@/components/DesignerNav";
 
 export default function Upgrade2() {
   return (
     <main className="flex flex-col">
+      <DesignerNav />
       {/* Navigation */}
       <nav className="section-shell flex justify-between items-center py-6 border-b border-stone-200">
         <Link href="/" className="text-lg font-semibold text-stone-800 no-underline hover:text-stone-600">

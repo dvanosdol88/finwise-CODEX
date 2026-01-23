@@ -1,4 +1,5 @@
 import { ImprovePage } from "@/components/improve/ImprovePage";
+import { DesignerNav } from "@/components/DesignerNav";
 
 export const metadata = {
   title: "Improve Your Tools | Better Decisions = Better Outcomes",
@@ -7,5 +8,10 @@ export const metadata = {
 };
 
 export default function ImproveToolsV2Page() {
-  return <ImprovePage version={2} />;
+  return (
+    <>
+      <DesignerNav />
+      <ImprovePage version={2} />
+    </>
+  );
 }

@@ -7,6 +7,7 @@ import {
   comparisonCards,
   navItems,
 } from "@/config/improvePageConfig";
+import { DesignerNav } from "@/components/DesignerNav";
 
 export const metadata = {
   title: "Improve Your Tools | Better Information = Better Decisions",
@@ -17,6 +18,7 @@ export const metadata = {
 export default function ImproveYourTools() {
   return (
     <main className="bg-neutral-50 text-neutral-900 antialiased">
+      <DesignerNav />
       <div className="max-w-[1100px] mx-auto px-4 sm:px-6 pb-16">
         {/* Header / Nav */}
         <header className="flex justify-between items-center border-b border-neutral-200 py-4">

@@ -1,8 +1,10 @@
 import React from 'react';
+import { DesignerNav } from "@/components/DesignerNav";
 
 export default function Upgrade7() {
   return (
     <div className="min-h-screen bg-white text-slate-800 font-serif">
+      <DesignerNav />
       
       {/* --- BLOCK 1: HERO SUMMARY --- */}
       <section className="py-20 px-4 max-w-4xl mx-auto text-center">

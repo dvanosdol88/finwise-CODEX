@@ -17,6 +17,7 @@ import {
   Area,
   AreaChart,
 } from 'recharts';
+import { DesignerNav } from "@/components/DesignerNav";
 
 // --- VISUAL 1: FEE CHART COMPONENT ---
 const FeeChart = () => {
@@ -245,6 +246,7 @@ const Scorecard = () => (
 export default function Upgrade5() {
   return (
     <main className="min-h-screen bg-white text-neutral-900 font-sans selection:bg-blue-100">
+      <DesignerNav />
 
       {/* 1. HERO SECTION: The Manifesto */}
       <section className="relative px-6 py-24 md:py-32 max-w-5xl mx-auto text-center">

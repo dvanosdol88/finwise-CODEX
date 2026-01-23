@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import { DesignerNav } from "@/components/DesignerNav";
 
 /**
  * Meaning page
@@ -121,6 +122,7 @@ export default function MeaningPage() {
 
   return (
     <div className="min-h-screen">
+      <DesignerNav />
       {/* Simple top nav (matches the minimal style used on /upgrade) */}
       <header className="border-b">
         <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4 text-sm">

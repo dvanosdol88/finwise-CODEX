@@ -25,7 +25,7 @@ export function ValueCards({
     {
       title: <><span className="text-green-600">Upgrade</span> Your Advice</>,
       image: brainAiImage,
-      href: '/upgrade',
+      href: '/upgrade1',
       description: (
         <>
           The Process of a <span className="font-bold text-gray-900">CFP® Professional</span>. The Rigor of a <span className="font-bold text-gray-900">CFA Charterholder</span>.
@@ -46,7 +46,7 @@ export function ValueCards({
     {
       title: <><span className="text-green-600">Improve</span> Your Tools</>,
       image: improveToolsImage,
-      href: '/improve',
+      href: '/improve1',
       imageClassName: "h-40 w-auto object-contain",
       description: (
         <>

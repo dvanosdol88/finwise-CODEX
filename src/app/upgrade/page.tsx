@@ -1,9 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
+import { DesignerNav } from "@/components/DesignerNav";
 
 export default function UpgradePage() {
   return (
     <div className="max-w-[1100px] mx-auto px-4 sm:px-6 pb-16">
+      <DesignerNav />
       {/* Header */}
       <header className="flex justify-between items-center border-b border-neutral-200 py-4">
         <Link href="/" className="font-bold flex items-center gap-2">

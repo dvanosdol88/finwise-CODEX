@@ -11,6 +11,7 @@ import {
   Clock,
   ArrowRight
 } from 'lucide-react';
+import { DesignerNav } from "@/components/DesignerNav";
 
 export const metadata = {
   title: "Tasks vs. Meaning | The Philosophy",
@@ -20,7 +21,7 @@ export const metadata = {
 export default function TasksMeaningPage() {
   return (
     <main className="bg-stone-50 text-stone-900 font-sans selection:bg-emerald-100">
-
+      <DesignerNav />
       {/* --- NAV (Matches Upgrade Pages) --- */}
       <nav className="max-w-[1100px] mx-auto px-6 py-6 flex justify-between items-center border-b border-stone-200">
         <Link href="/" className="font-bold flex items-center gap-2 hover:opacity-90 no-underline text-stone-900">
