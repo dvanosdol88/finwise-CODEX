@@ -97,7 +97,7 @@ export function ProFeeChart({ data, finalLost, finalValueWithoutFees, finalValue
       <div className="absolute top-8 left-8 z-10 pointer-events-none space-y-4">
         <div>
           <p className="text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-1">Projected Value</p>
-          <p className="text-3xl font-bold text-emerald-700 tracking-tight">{formatCurrency(finalValueWithoutFees)}</p>
+          <p className="text-2xl font-semibold text-emerald-700 tracking-tight">{formatCurrency(finalValueWithoutFees)}</p>
         </div>
         <div>
            <p className="text-xs font-semibold text-red-500 uppercase tracking-wider mb-1">Lost to Fees</p>
