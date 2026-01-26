@@ -9,3 +9,6 @@ node_modules
 gha-creds-*.json
 .vercel
 .env*.local
+*.log
+*.err
+.playwright-mcp/
