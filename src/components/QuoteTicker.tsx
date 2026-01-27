@@ -197,13 +197,14 @@ export default function QuoteTicker({
     const currentX = getCurrentTranslateX(ticker);
     const distance = ticker.scrollWidth / 2;
     const pxPerSecond = distance > 0 ? distance / speed : 0;
-    const decelDistance = (pxPerSecond * 0.5) / 2;
+    const decelDuration = 0.8;
+    const decelDistance = (pxPerSecond * decelDuration) / 2;
     const targetX = currentX - decelDistance;
 
     setTickerStyle({
       width: 'max-content',
       transform: `translateX(${targetX}px)`,
-      transition: 'transform 0.5s ease-out',
+      transition: `transform ${decelDuration}s ease-out`,
     });
   };
 
@@ -298,7 +299,7 @@ export default function QuoteTicker({
       )}
 
       <div
-        className="relative py-8 overflow-hidden bg-transparent ticker-wrapper group/ticker"
+        className="relative py-8 overflow-hidden bg-transparent ticker-wrapper"
         onMouseEnter={() => {
           isHoveringRef.current = true;
           smoothStopTicker();
@@ -331,10 +332,10 @@ export default function QuoteTicker({
               onMouseLeave={handleMouseLeave}
             >
               <div className="flex flex-col items-center">
-                <span className="text-stone-400 font-medium text-lg leading-none whitespace-nowrap transition-all duration-300 ease-in-out transform group-hover/ticker:scale-110 group-hover/ticker:text-green-600">
+                <span className="text-stone-400 font-medium text-lg leading-none whitespace-nowrap transition-all duration-300 ease-in-out transform group-hover:scale-110 group-hover:text-green-600">
                   {item.firstName}
                 </span>
-                <span className="text-stone-400 font-semibold text-3xl leading-none -mt-0.5 whitespace-nowrap transition-all duration-300 ease-in-out transform group-hover/ticker:scale-110 group-hover/ticker:text-green-600">
+                <span className="text-stone-400 font-semibold text-3xl leading-none -mt-0.5 whitespace-nowrap transition-all duration-300 ease-in-out transform group-hover:scale-110 group-hover:text-green-600">
                   {item.lastName}
                 </span>
               </div>
