@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 // ============================================================================
 // TYPES
@@ -155,9 +155,14 @@ export default function QuoteTicker({
   showLabel = true,
   speed = 159,
 }: QuoteTickerProps) {
-  const [isPaused, setIsPaused] = useState(false);
   const [hoveredQuote, setHoveredQuote] = useState<Quote | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  const [tickerStyle, setTickerStyle] = useState<React.CSSProperties>({
+    animation: `tickerScroll ${speed}s linear infinite`,
+    width: 'max-content',
+  });
+  const tickerRef = useRef<HTMLDivElement>(null);
+  const isHoveringRef = useRef(false);
 
   const handleMouseEnter = (quote: Quote, e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -173,6 +178,61 @@ export default function QuoteTicker({
   };
 
   const tickerItems = [...QUOTES, ...QUOTES];
+
+  const getCurrentTranslateX = (element: HTMLDivElement) => {
+    const transformValue = window.getComputedStyle(element).transform;
+    if (!transformValue || transformValue === 'none') {
+      return 0;
+    }
+    const matrix = new DOMMatrixReadOnly(transformValue);
+    return matrix.m41;
+  };
+
+  const smoothStopTicker = () => {
+    const ticker = tickerRef.current;
+    if (!ticker) {
+      return;
+    }
+
+    const currentX = getCurrentTranslateX(ticker);
+    const distance = ticker.scrollWidth / 2;
+    const pxPerSecond = distance > 0 ? distance / speed : 0;
+    const decelDistance = (pxPerSecond * 0.5) / 2;
+    const targetX = currentX - decelDistance;
+
+    setTickerStyle({
+      width: 'max-content',
+      transform: `translateX(${targetX}px)`,
+      transition: 'transform 0.5s ease-out',
+    });
+  };
+
+  const resumeTicker = () => {
+    const ticker = tickerRef.current;
+    if (!ticker) {
+      return;
+    }
+
+    const currentX = getCurrentTranslateX(ticker);
+    const distance = ticker.scrollWidth / 2;
+    const progress = distance > 0 ? Math.abs(currentX) / distance : 0;
+    const elapsed = progress * speed;
+
+    setTickerStyle({
+      animation: `tickerScroll ${speed}s linear infinite`,
+      animationDelay: `-${elapsed}s`,
+      width: 'max-content',
+    });
+  };
+
+  useEffect(() => {
+    if (!isHoveringRef.current) {
+      setTickerStyle({
+        animation: `tickerScroll ${speed}s linear infinite`,
+        width: 'max-content',
+      });
+    }
+  }, [speed]);
 
   return (
     <>
@@ -238,9 +298,15 @@ export default function QuoteTicker({
       )}
 
       <div
-        className="relative py-8 overflow-hidden bg-transparent ticker-wrapper"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+        className="relative py-8 overflow-hidden bg-transparent ticker-wrapper group/ticker"
+        onMouseEnter={() => {
+          isHoveringRef.current = true;
+          smoothStopTicker();
+        }}
+        onMouseLeave={() => {
+          isHoveringRef.current = false;
+          resumeTicker();
+        }}
       >
         {showLabel && (
           <div className="text-center mb-[18px]">
@@ -252,10 +318,9 @@ export default function QuoteTicker({
 
         <div 
           className="flex ticker-scroll"
+          ref={tickerRef}
           style={{
-            animation: `tickerScroll ${speed}s linear infinite`,
-            animationPlayState: isPaused ? 'paused' : 'running',
-            width: 'max-content',
+            ...tickerStyle,
           }}
         >
           {tickerItems.map((item, index) => (
@@ -266,10 +331,10 @@ export default function QuoteTicker({
               onMouseLeave={handleMouseLeave}
             >
               <div className="flex flex-col items-center">
-                <span className="text-stone-400 font-medium text-lg leading-none whitespace-nowrap">
+                <span className="text-stone-400 font-medium text-lg leading-none whitespace-nowrap transition-all duration-300 ease-in-out transform group-hover/ticker:scale-110 group-hover/ticker:text-green-600">
                   {item.firstName}
                 </span>
-                <span className="text-stone-400 font-semibold text-3xl leading-none -mt-0.5 whitespace-nowrap">
+                <span className="text-stone-400 font-semibold text-3xl leading-none -mt-0.5 whitespace-nowrap transition-all duration-300 ease-in-out transform group-hover/ticker:scale-110 group-hover/ticker:text-green-600">
                   {item.lastName}
                 </span>
               </div>

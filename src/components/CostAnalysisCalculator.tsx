@@ -33,6 +33,7 @@ const Slider = ({
   onChange,
   type,
   decimals,
+  minInputWidthCh = 4,
 }: {
   label: string;
   min: number;
@@ -41,6 +42,7 @@ const Slider = ({
   value: number;
   type?: 'currency' | 'percent';
   decimals?: number;
+  minInputWidthCh?: number;
   onChange: (value: number) => void;
 }) => {
   const formatValue = useCallback((val: number) => {
@@ -99,7 +101,7 @@ const Slider = ({
             value={inputValue}
             onChange={handleInputChange}
             onBlur={handleBlur}
-            style={{ width: `${Math.max(inputValue.length, 1) + 2}ch`, minWidth: '4ch' }}
+            style={{ width: `${Math.max(inputValue.length, 1) + 2}ch`, minWidth: `${minInputWidthCh}ch` }}
             className={`py-1 px-2 text-right font-bold text-gray-900 bg-gray-50 border border-gray-200 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all ${formatPrefix ? 'pl-6' : ''} ${formatSuffix ? 'pr-8' : ''}`}
           />
           {formatSuffix && (
@@ -235,6 +237,7 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
                     value={state.portfolioValue}
                     onChange={(value) => setState((prev) => ({ ...prev, portfolioValue: value }))}
                     type="currency"
+                    minInputWidthCh={10}
                   />
                   <Slider
                     label="Annual growth"
@@ -245,6 +248,7 @@ export function CostAnalysisCalculator({ initialState, searchParams }: Props) {
                     onChange={(value) => setState((prev) => ({ ...prev, annualGrowthPercent: value }))}
                     type="percent"
                     decimals={1}
+                    minInputWidthCh={10}
                   />
                   <Slider
                     label="Time horizon (Years)"

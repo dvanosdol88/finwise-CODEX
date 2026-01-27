@@ -112,7 +112,7 @@ export function ProFeeChart({ data, finalLost, finalValueWithoutFees, finalValue
             </p>
           </div>
           <div className="border-b border-transparent pb-2 mb-2">
-            <p className="text-xs font-semibold text-red-500 uppercase tracking-wider text-left">
+            <p className="text-base font-bold text-red-500 uppercase tracking-wider text-left">
               Lost to Fees
             </p>
           </div>
