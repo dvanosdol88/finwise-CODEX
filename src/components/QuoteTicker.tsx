@@ -155,6 +155,7 @@ export default function QuoteTicker({
   showLabel = true,
   speed = 159,
 }: QuoteTickerProps) {
+  const [isPaused, setIsPaused] = useState(false);
   const [hoveredQuote, setHoveredQuote] = useState<Quote | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
@@ -182,9 +183,6 @@ export default function QuoteTicker({
         }
         .ticker-scroll {
           will-change: transform;
-        }
-        .ticker-wrapper:hover .ticker-scroll {
-          animation-play-state: paused;
         }
       `}</style>
 
@@ -239,7 +237,11 @@ export default function QuoteTicker({
         </div>
       )}
 
-      <div className="relative py-8 overflow-hidden bg-transparent ticker-wrapper">
+      <div
+        className="relative py-8 overflow-hidden bg-transparent ticker-wrapper"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
         {showLabel && (
           <div className="text-center mb-[18px]">
             <span className="text-base font-medium tracking-wide text-stone-800">
@@ -252,6 +254,7 @@ export default function QuoteTicker({
           className="flex ticker-scroll"
           style={{
             animation: `tickerScroll ${speed}s linear infinite`,
+            animationPlayState: isPaused ? 'paused' : 'running',
             width: 'max-content',
           }}
         >
