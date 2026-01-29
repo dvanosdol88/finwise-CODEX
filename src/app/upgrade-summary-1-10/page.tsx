@@ -90,18 +90,16 @@ export default function UpgradeSummary() {
             </div>
           </div>
 
-          <div className="grid xl:grid-cols-2 gap-6">
-            <PagePreview
-              href="/upgrade1"
-              title="Upgrade 1"
-              description="Original personal story with credential cards and model comparison"
-            />
-            <PagePreview
-              href="/upgrade2"
-              title="Upgrade 2"
-              description="Same story + 'What This Looks Like in Practice' section"
-            />
-          </div>
+          <PagePreview
+            href="/upgrade1"
+            title="Upgrade 1"
+            description="Original personal story with credential cards and model comparison"
+          />
+          <PagePreview
+            href="/upgrade2"
+            title="Upgrade 2"
+            description="Same story + 'What This Looks Like in Practice' section"
+          />
         </section>
 
         {/* Theme 2: Credential Education */}
@@ -118,18 +116,16 @@ export default function UpgradeSummary() {
             </div>
           </div>
 
-          <div className="grid xl:grid-cols-2 gap-6">
-            <PagePreview
-              href="/upgrade3"
-              title="Upgrade 3"
-              description="Deep-dive educational page with sources and Bogle quote"
-            />
-            <PagePreview
-              href="/upgrade4"
-              title="Upgrade 4"
-              description="Nearly identical to Upgrade 3"
-            />
-          </div>
+          <PagePreview
+            href="/upgrade3"
+            title="Upgrade 3"
+            description="Deep-dive educational page with sources and Bogle quote"
+          />
+          <PagePreview
+            href="/upgrade4"
+            title="Upgrade 4"
+            description="Nearly identical to Upgrade 3"
+          />
         </section>
 
         {/* Theme 3: Visual/Data-Driven */}
@@ -167,18 +163,16 @@ export default function UpgradeSummary() {
             </div>
           </div>
 
-          <div className="grid xl:grid-cols-2 gap-6">
-            <PagePreview
-              href="/upgrade6"
-              title="Upgrade 6"
-              description="Badge-focused design with CFA image and rarity statistics"
-            />
-            <PagePreview
-              href="/upgrade7"
-              title="Upgrade 7"
-              description="Newspaper-style with 'By The Numbers' comparison table"
-            />
-          </div>
+          <PagePreview
+            href="/upgrade6"
+            title="Upgrade 6"
+            description="Badge-focused design with CFA image and rarity statistics"
+          />
+          <PagePreview
+            href="/upgrade7"
+            title="Upgrade 7"
+            description="Newspaper-style with 'By The Numbers' comparison table"
+          />
         </section>
 
         {/* Theme 5: Fiduciary Deep Dive */}
@@ -216,18 +210,16 @@ export default function UpgradeSummary() {
             </div>
           </div>
 
-          <div className="grid xl:grid-cols-2 gap-6">
-            <PagePreview
-              href="/upgrade9"
-              title="Upgrade 9"
-              description="'What's my job?' opener with 'The Dirty Secret' revelation"
-            />
-            <PagePreview
-              href="/upgrade10"
-              title="Upgrade 10"
-              description="Polished version with strikethrough headline and industry exposé"
-            />
-          </div>
+          <PagePreview
+            href="/upgrade9"
+            title="Upgrade 9"
+            description="'What's my job?' opener with 'The Dirty Secret' revelation"
+          />
+          <PagePreview
+            href="/upgrade10"
+            title="Upgrade 10"
+            description="Polished version with strikethrough headline and industry exposé"
+          />
         </section>
 
         {/* Footer */}
