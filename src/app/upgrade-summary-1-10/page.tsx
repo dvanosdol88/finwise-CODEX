@@ -18,7 +18,7 @@ function PagePreview({ href, title, description }: PagePreviewProps) {
           <p className="text-sm text-stone-500">{description}</p>
         </div>
         <Link
-          href={href}
+          href={href as never}
           target="_blank"
           className="text-sm font-medium text-blue-600 hover:text-blue-800 no-underline flex items-center gap-1"
         >
